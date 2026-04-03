@@ -1,0 +1,182 @@
+---
+import Base from "../../layouts/Base.astro";
+import { languages, type Lang } from "../../i18n/index";
+import { t } from "../../i18n/translations";
+import { organizations, cities } from "../../data/organizations";
+import { translateCity } from "../../data/cities";
+
+export function getStaticPaths() {
+  return Object.keys(languages).map((lang) => ({ params: { lang } }));
+}
+
+const lang = Astro.params.lang as Lang;
+const tr = t(lang);
+const orgTranslations = tr.orgs as Record<string, { name: string; type: string; desc: string }>;
+---
+
+<Base lang={lang} title={tr.resources.title}>
+  <section class="bg-brand-green-light border-b border-surface-border">
+    <div class="max-w-content mx-auto px-5 lg:px-8 py-12 md:py-20">
+      <div class="max-w-2xl">
+        <h1 class="text-3xl md:text-4xl font-extrabold text-brand-green mb-3 font-display">{tr.resources.title}</h1>
+        <p class="text-base md:text-lg text-txt-secondary">
+          {organizations.length} {tr.resources.organizationsIn} {cities.length} {tr.resources.cities}
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="max-w-content mx-auto px-5 lg:px-8 py-8 md:py-12">
+      <!-- City filter -->
+      <div
+        class="flex gap-2 mb-8 overflow-x-auto pb-2"
+        id="city-filter"
+        style="-webkit-overflow-scrolling: touch"
+      >
+        {cities.map((city) => {
+          const count = organizations.filter((o) => o.city === city).length;
+          return (
+            <button
+              class="city-btn border border-surface-border rounded-full px-4 py-2 text-sm font-semibold cursor-pointer whitespace-nowrap flex-shrink-0 transition-colors bg-white text-txt-secondary hover:bg-surface-card"
+              data-city={city}
+            >
+              {translateCity(city, lang)}<span class="ml-1.5 text-xs opacity-60">{count}</span>
+            </button>
+          );
+        })}
+      </div>
+
+      <!-- Organization cards -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="org-list">
+        {organizations.map((org, i) => {
+          const orgTr = orgTranslations[org.key];
+          return (
+            <div
+              class="org-card bg-white border border-surface-border rounded-2xl overflow-hidden transition-all shadow-sm hover:shadow-md"
+              data-city={org.city}
+              data-index={i}
+              style="display: none;"
+            >
+              <button
+                class="org-toggle w-full bg-transparent border-none p-5 cursor-pointer text-left"
+                data-index={i}
+              >
+                <div class="flex justify-between items-start mb-2">
+                  <h3 class="text-sm font-bold text-txt-primary flex-1 leading-snug pr-2">
+                    {orgTr?.name || org.key}
+                  </h3>
+                  <span class="text-base text-txt-muted org-arrow transition-transform flex-shrink-0">&rsaquo;</span>
+                </div>
+                <div class="text-xs font-semibold text-brand-green mb-2">
+                  {orgTr?.type || ""}
+                </div>
+                {org.primaryPhone && (
+                  <div class="text-sm text-brand-green font-medium">&#9743; {org.primaryPhone}</div>
+                )}
+              </button>
+              <div class="org-content" style="display: none;">
+                <div class="px-5 pb-5 animate-in border-t border-surface-border pt-4">
+                  <p class="text-sm text-txt-secondary mb-4 leading-relaxed">
+                    {orgTr?.desc || ""}
+                  </p>
+                  {org.address && (
+                    <p class="text-xs text-txt-muted mb-4">&#128205; {org.address}</p>
+                  )}
+                  <div class="flex flex-col gap-2">
+                    {org.phones.map((phone, pi) => (
+                      <a
+                        href={`tel:${phone.replace(/[\s\-\/]/g, "")}`}
+                        class={`flex items-center gap-2 ${
+                          pi === 0
+                            ? "bg-brand-green text-white hover:bg-brand-green-hover"
+                            : "bg-surface-card text-txt-primary border border-surface-border hover:bg-surface-hover"
+                        } p-3 rounded-xl text-sm font-semibold no-underline transition-colors`}
+                      >
+                        &#9743; {phone}
+                      </a>
+                    ))}
+                    {org.email && (
+                      <a
+                        href={`mailto:${org.email}`}
+                        class="flex items-center gap-2 bg-surface-card text-txt-secondary border border-surface-border p-3 rounded-xl text-sm no-underline hover:bg-surface-hover transition-colors"
+                      >
+                        &#9993; {org.email}
+                      </a>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+</Base>
+
+<script>
+  const cityFilter = document.getElementById("city-filter");
+  const orgList = document.getElementById("org-list");
+
+  if (cityFilter && orgList) {
+    const cityBtns = cityFilter.querySelectorAll(".city-btn");
+    const orgCards = orgList.querySelectorAll(".org-card") as NodeListOf<HTMLElement>;
+    const orgToggles = orgList.querySelectorAll(".org-toggle");
+
+    function selectCity(city: string) {
+      cityBtns.forEach((btn) => {
+        const isActive = btn.getAttribute("data-city") === city;
+        if (isActive) {
+          btn.classList.add("bg-brand-green", "text-white", "border-brand-green");
+          btn.classList.remove("bg-white", "text-txt-secondary", "border-surface-border");
+        } else {
+          btn.classList.remove("bg-brand-green", "text-white", "border-brand-green");
+          btn.classList.add("bg-white", "text-txt-secondary", "border-surface-border");
+        }
+      });
+
+      orgCards.forEach((card) => {
+        const cardCity = card.getAttribute("data-city");
+        card.style.display = cardCity === city ? "block" : "none";
+        const content = card.querySelector(".org-content") as HTMLElement;
+        const arrow = card.querySelector(".org-arrow") as HTMLElement;
+        if (content) content.style.display = "none";
+        if (arrow) arrow.style.transform = "rotate(0deg)";
+      });
+    }
+
+    cityBtns.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        selectCity(btn.getAttribute("data-city") || "");
+      });
+    });
+
+    orgToggles.forEach((toggle) => {
+      toggle.addEventListener("click", () => {
+        const idx = parseInt(toggle.getAttribute("data-index") || "-1");
+        const card = orgCards[idx];
+        if (!card) return;
+
+        const content = card.querySelector(".org-content") as HTMLElement;
+        const arrow = card.querySelector(".org-arrow") as HTMLElement;
+        const isOpen = content?.style.display === "block";
+
+        orgCards.forEach((c) => {
+          const ct = c.querySelector(".org-content") as HTMLElement;
+          const ar = c.querySelector(".org-arrow") as HTMLElement;
+          if (ct) ct.style.display = "none";
+          if (ar) ar.style.transform = "rotate(0deg)";
+        });
+
+        if (!isOpen) {
+          if (content) content.style.display = "block";
+          if (arrow) arrow.style.transform = "rotate(90deg)";
+        }
+      });
+    });
+
+    const firstCity = cityBtns[0]?.getAttribute("data-city");
+    if (firstCity) selectCity(firstCity);
+  }
+</script>

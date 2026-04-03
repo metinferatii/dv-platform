@@ -1,0 +1,27 @@
+---
+import { languages, type Lang, getPathWithoutLang } from "../i18n/index";
+
+interface Props {
+  lang: Lang;
+  currentPath: string;
+}
+
+const { lang, currentPath } = Astro.props;
+const pathWithoutLang = getPathWithoutLang(new URL(currentPath, "https://x.com"));
+---
+
+<div class="flex gap-1">
+  {Object.entries(languages).map(([code, label]) => (
+    <a
+      href={`/${code}${pathWithoutLang === "/" ? "" : pathWithoutLang}`}
+      class:list={[
+        "text-xs px-2.5 py-1.5 rounded-md no-underline transition-colors",
+        code === lang
+          ? "bg-brand-green text-white font-semibold"
+          : "bg-surface-card text-txt-secondary hover:bg-surface-hover hover:text-txt-primary",
+      ]}
+    >
+      {label}
+    </a>
+  ))}
+</div>

@@ -1,0 +1,45 @@
+---
+import type { Lang } from "../i18n/index";
+import { t } from "../i18n/translations";
+
+interface Props {
+  currentPath: string;
+  lang: Lang;
+}
+
+const { currentPath, lang } = Astro.props;
+const tr = t(lang);
+
+const items = [
+  { href: `/${lang}`, label: tr.nav.home, icon: "⌂", match: new RegExp(`^/${lang}/?$`) },
+  { href: `/${lang}/hapat`, label: tr.nav.guide, icon: "☰", match: /\/hapat/ },
+  { href: `/${lang}/dokumento`, label: tr.nav.doc, icon: "✎", match: /\/dokumento/ },
+  { href: `/${lang}/ndihme`, label: tr.nav.resources, icon: "◎", match: /\/ndihme/ },
+  { href: `/${lang}/thirr`, label: tr.nav.hotlines, icon: "✆", match: /\/thirr/ },
+];
+---
+
+<nav class="md:hidden fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-surface-border flex justify-around py-1.5 pb-[max(0.5rem,env(safe-area-inset-bottom))] z-[100]">
+  {items.map((item) => {
+    const active = item.match.test(currentPath);
+    return (
+      <a
+        href={item.href}
+        class:list={[
+          "flex flex-col items-center gap-0.5 no-underline px-4 py-1.5 rounded-xl transition-colors",
+          active ? "bg-brand-green-light" : "",
+        ]}
+      >
+        <span class:list={["text-xl", active ? "opacity-100 text-brand-green" : "opacity-40"]}>{item.icon}</span>
+        <span
+          class:list={[
+            "text-[11px]",
+            active ? "font-bold text-brand-green" : "font-medium text-txt-muted",
+          ]}
+        >
+          {item.label}
+        </span>
+      </a>
+    );
+  })}
+</nav>

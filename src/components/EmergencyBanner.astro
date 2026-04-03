@@ -1,0 +1,25 @@
+---
+interface Props {
+  label?: string;
+  actionLabel?: string;
+  number?: string;
+}
+
+const {
+  label = "Kjo eshte urgjence? Thirr per ndihme te menjehershme.",
+  actionLabel = "Thirr 192",
+  number = "192",
+} = Astro.props;
+---
+
+<div class="bg-red-50 border-b border-red-200">
+  <div class="max-w-content mx-auto px-5 lg:px-8 py-2.5 flex items-center justify-center gap-4 text-sm">
+    <span class="text-red-800">{label}</span>
+    <a
+      href={`tel:${number}`}
+      class="inline-flex items-center gap-1.5 bg-brand-red hover:bg-brand-red-hover text-white rounded-full px-4 py-1.5 no-underline transition-colors font-semibold text-sm"
+    >
+      {actionLabel} &#9743;
+    </a>
+  </div>
+</div>

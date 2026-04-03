@@ -1,0 +1,42 @@
+---
+import "../styles/global.css";
+import TopNav from "../components/TopNav.astro";
+import BottomNav from "../components/BottomNav.astro";
+import EmergencyBanner from "../components/EmergencyBanner.astro";
+import type { Lang } from "../i18n/index";
+import { t } from "../i18n/translations";
+
+interface Props {
+  title?: string;
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const tr = t(lang);
+const title = Astro.props.title || tr.meta.title;
+const currentPath = Astro.url.pathname;
+---
+
+<!doctype html>
+<html lang={lang === "rom" ? "rom" : lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={tr.meta.description} />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>{title}</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  </head>
+  <body class="font-sans bg-white text-txt-primary">
+    <EmergencyBanner
+      label={tr.home.emergencyLabel}
+      actionLabel={tr.home.emergencyAction}
+      number="192"
+    />
+    <TopNav currentPath={currentPath} lang={lang} />
+    <main>
+      <slot />
+    </main>
+    <BottomNav currentPath={currentPath} lang={lang} />
+  </body>
+</html>

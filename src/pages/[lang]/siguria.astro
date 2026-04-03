@@ -1,0 +1,128 @@
+---
+import Base from "../../layouts/Base.astro";
+import { languages, type Lang } from "../../i18n/index";
+import { t } from "../../i18n/translations";
+
+export function getStaticPaths() {
+  return Object.keys(languages).map((lang) => ({ params: { lang } }));
+}
+
+const lang = Astro.params.lang as Lang;
+const tr = t(lang);
+const sections = tr.safetySteps;
+const totalItems = sections.reduce((a, s) => a + s.items.length, 0);
+
+const iconMap: Record<string, string> = {
+  doc: "&#128196;",
+  money: "&#128176;",
+  bag: "&#128092;",
+  phone: "&#128241;",
+};
+---
+
+<Base lang={lang} title={tr.safety.title}>
+  <section class="bg-brand-green-light border-b border-surface-border">
+    <div class="max-w-content mx-auto px-5 lg:px-8 py-12 md:py-20">
+      <div class="max-w-2xl">
+        <h1 class="text-3xl md:text-4xl font-extrabold text-brand-green mb-3 font-display">{tr.safety.title}</h1>
+        <p class="text-base md:text-lg text-txt-secondary">{tr.safety.subtitle}</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="max-w-3xl mx-auto px-5 lg:px-8 py-10 md:py-16">
+      <!-- Progress -->
+      <div class="mb-8">
+        <div class="bg-surface-card rounded-full h-2 overflow-hidden">
+          <div id="progress-bar" class="bg-brand-green h-full rounded-full transition-all duration-300 ease-out" style="width: 0%"></div>
+        </div>
+        <p class="text-sm text-txt-muted mt-2 text-right" id="progress-text">
+          0/{totalItems} {tr.safety.steps}
+        </p>
+      </div>
+
+      <!-- Checklist -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="safety-checklist" data-total={totalItems} data-steps-label={tr.safety.steps}>
+        {sections.map((section, si) => (
+          <div class="bg-white border border-surface-border rounded-2xl p-6 shadow-sm">
+            <div class="flex items-center gap-3 mb-5">
+              <span class="text-2xl" set:html={iconMap[section.icon] || "&#9679;"} />
+              <h3 class="text-lg font-bold text-brand-green">{section.title}</h3>
+            </div>
+            <div class="flex flex-col gap-2.5">
+              {section.items.map((item, ii) => (
+                <button
+                  class="safety-check flex items-center gap-3 bg-surface-raised hover:bg-surface-card border border-surface-border rounded-xl p-3.5 cursor-pointer text-left w-full transition-colors"
+                  data-key={`${si}-${ii}`}
+                >
+                  <div class="check-box w-[22px] h-[22px] rounded-md border-2 border-surface-border-light flex items-center justify-center flex-shrink-0 text-[13px] font-bold text-white transition-colors">
+                  </div>
+                  <span class="check-label text-sm text-txt-secondary transition-colors">{item}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>
+
+<script>
+  const checklist = document.getElementById("safety-checklist");
+  const progressBar = document.getElementById("progress-bar");
+  const progressText = document.getElementById("progress-text");
+
+  if (checklist) {
+    const total = parseInt(checklist.getAttribute("data-total") || "0");
+    const stepsLabel = checklist.getAttribute("data-steps-label") || "steps";
+    const buttons = checklist.querySelectorAll(".safety-check");
+    const checked = new Set<string>();
+
+    function updateProgress() {
+      const pct = total > 0 ? (checked.size / total) * 100 : 0;
+      if (progressBar) progressBar.style.width = `${pct}%`;
+      if (progressText) progressText.textContent = `${checked.size}/${total} ${stepsLabel}`;
+    }
+
+    buttons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const key = btn.getAttribute("data-key") || "";
+        const box = btn.querySelector(".check-box") as HTMLElement;
+        const label = btn.querySelector(".check-label") as HTMLElement;
+
+        if (checked.has(key)) {
+          checked.delete(key);
+          (btn as HTMLElement).style.borderColor = "#e2e8f0";
+          (btn as HTMLElement).style.background = "#f8fafc";
+          if (box) {
+            box.style.background = "transparent";
+            box.style.borderColor = "#cbd5e1";
+            box.innerHTML = "";
+          }
+          if (label) {
+            label.style.color = "#475569";
+            label.style.fontWeight = "400";
+            label.style.textDecoration = "none";
+          }
+        } else {
+          checked.add(key);
+          (btn as HTMLElement).style.borderColor = "rgba(45,106,79,0.3)";
+          (btn as HTMLElement).style.background = "#f0f7f4";
+          if (box) {
+            box.style.background = "#2d6a4f";
+            box.style.borderColor = "#2d6a4f";
+            box.innerHTML = "✓";
+          }
+          if (label) {
+            label.style.color = "#2d6a4f";
+            label.style.fontWeight = "600";
+            label.style.textDecoration = "line-through";
+          }
+        }
+        updateProgress();
+      });
+    });
+  }
+</script>

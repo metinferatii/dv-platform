@@ -1,0 +1,91 @@
+---
+import Base from "../../layouts/Base.astro";
+import { languages, type Lang } from "../../i18n/index";
+import { t } from "../../i18n/translations";
+
+export function getStaticPaths() {
+  return Object.keys(languages).map((lang) => ({ params: { lang } }));
+}
+
+const lang = Astro.params.lang as Lang;
+const tr = t(lang);
+const doc = tr.docGuide as {
+  title: string;
+  subtitle: string;
+  sections: { title: string; items: readonly string[] }[];
+  callToAction: string;
+  purposes: readonly string[];
+};
+
+const sectionIcons = ["&#128247;", "&#128172;", "&#128221;", "&#127973;"];
+const sectionColors = [
+  { bg: "bg-blue-50", border: "border-blue-200", title: "text-blue-800", bullet: "text-blue-600" },
+  { bg: "bg-violet-50", border: "border-violet-200", title: "text-violet-800", bullet: "text-violet-600" },
+  { bg: "bg-amber-50", border: "border-amber-200", title: "text-amber-800", bullet: "text-amber-600" },
+  { bg: "bg-emerald-50", border: "border-emerald-200", title: "text-emerald-800", bullet: "text-emerald-600" },
+];
+---
+
+<Base lang={lang} title={doc.title}>
+  <section class="bg-brand-green-light border-b border-surface-border">
+    <div class="max-w-content mx-auto px-5 lg:px-8 py-12 md:py-20">
+      <div class="max-w-2xl">
+        <h1 class="text-3xl md:text-4xl font-extrabold text-brand-green mb-3 font-display">{doc.title}</h1>
+        <p class="text-base md:text-lg text-txt-secondary">{doc.subtitle}</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="max-w-3xl mx-auto px-5 lg:px-8 py-10 md:py-16">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {doc.sections.map((section, i) => {
+          const color = sectionColors[i];
+          return (
+            <div class={`${color.bg} border ${color.border} rounded-2xl p-6`}>
+              <div class="flex items-center gap-3 mb-5">
+                <span class="text-2xl" set:html={sectionIcons[i]} />
+                <h3 class={`text-lg font-bold ${color.title}`}>{section.title}</h3>
+              </div>
+              <ul class="flex flex-col gap-3 list-none p-0 m-0">
+                {section.items.map((item) => (
+                  <li class="flex items-start gap-2.5">
+                    <span class={`${color.bullet} mt-0.5 text-sm`}>&#10003;</span>
+                    <span class="text-sm text-txt-secondary leading-relaxed">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          );
+        })}
+      </div>
+
+      <!-- Call to action -->
+      <div class="mt-10 bg-brand-green-light border border-brand-green/20 rounded-2xl p-6 md:p-8">
+        <h3 class="text-lg font-bold text-brand-green mb-4">{doc.callToAction}</h3>
+        <ul class="flex flex-col gap-3 list-none p-0 m-0 mb-6">
+          {doc.purposes.map((purpose) => (
+            <li class="flex items-start gap-2.5">
+              <span class="text-brand-green mt-0.5">&#10003;</span>
+              <span class="text-sm text-txt-secondary leading-relaxed font-medium">{purpose}</span>
+            </li>
+          ))}
+        </ul>
+        <div class="flex flex-col sm:flex-row gap-3">
+          <a
+            href={`/${lang}/ndihme`}
+            class="inline-flex items-center justify-center gap-2 bg-brand-green hover:bg-brand-green-hover text-white rounded-full px-6 py-3 text-sm font-bold no-underline transition-colors"
+          >
+            {tr.guideSteps[2].action} &rarr;
+          </a>
+          <a
+            href={`/${lang}/thirr`}
+            class="inline-flex items-center justify-center gap-2 border-2 border-brand-green text-brand-green hover:bg-brand-green hover:text-white rounded-full px-6 py-3 text-sm font-bold no-underline transition-colors"
+          >
+            {tr.hotlines.title} &#9743;
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>

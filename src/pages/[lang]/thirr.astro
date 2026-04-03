@@ -1,0 +1,67 @@
+---
+import Base from "../../layouts/Base.astro";
+import { languages, type Lang } from "../../i18n/index";
+import { t } from "../../i18n/translations";
+import { hotlines } from "../../data/hotlines";
+
+export function getStaticPaths() {
+  return Object.keys(languages).map((lang) => ({ params: { lang } }));
+}
+
+const lang = Astro.params.lang as Lang;
+const tr = t(lang);
+const hotlineNames = tr.hotlineNames as Record<string, { name: string; available: string }>;
+---
+
+<Base lang={lang} title={tr.hotlines.title}>
+  <section class="bg-brand-green-light border-b border-surface-border">
+    <div class="max-w-content mx-auto px-5 lg:px-8 py-12 md:py-20">
+      <div class="max-w-2xl">
+        <h1 class="text-3xl md:text-4xl font-extrabold text-brand-green mb-3 font-display">{tr.hotlines.title}</h1>
+        <p class="text-base md:text-lg text-txt-secondary">{tr.hotlines.subtitle}</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="max-w-3xl mx-auto px-5 lg:px-8 py-10 md:py-16">
+      <div class="flex flex-col gap-3">
+        {hotlines.map((h) => {
+          const hn = hotlineNames[h.key];
+          return (
+            <a
+              href={`tel:${h.number.replace(/[\s\-]/g, "")}`}
+              class={`flex items-center justify-between rounded-2xl p-5 no-underline transition-all ${
+                h.primary
+                  ? "bg-red-50 border border-red-200 hover:bg-red-100"
+                  : "bg-emerald-50 border border-emerald-200 hover:bg-emerald-100"
+              }`}
+            >
+              <div>
+                <div class={`text-sm font-bold mb-1 ${h.primary ? "text-red-900" : "text-emerald-900"}`}>
+                  {hn?.name || h.key}
+                </div>
+                <div class={`text-xs ${h.primary ? "text-red-600" : "text-emerald-600"}`}>{hn?.available || ""}</div>
+              </div>
+              <div
+                class={`text-lg font-extrabold px-4 py-2.5 rounded-xl whitespace-nowrap ${
+                  h.primary
+                    ? "bg-brand-red text-white"
+                    : "bg-brand-green text-white"
+                }`}
+              >
+                {h.number}
+              </div>
+            </a>
+          );
+        })}
+      </div>
+
+      <div class="mt-8 bg-amber-50 rounded-2xl p-5 border border-amber-200">
+        <p class="text-sm text-amber-800 leading-relaxed">
+          <strong class="text-amber-900">{tr.hotlines.warningLabel}</strong> {tr.hotlines.warning}
+        </p>
+      </div>
+    </div>
+  </section>
+</Base>

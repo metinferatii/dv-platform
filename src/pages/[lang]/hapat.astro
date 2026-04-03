@@ -1,0 +1,122 @@
+---
+import Base from "../../layouts/Base.astro";
+import { languages, type Lang } from "../../i18n/index";
+import { t } from "../../i18n/translations";
+
+export function getStaticPaths() {
+  return Object.keys(languages).map((lang) => ({ params: { lang } }));
+}
+
+const lang = Astro.params.lang as Lang;
+const tr = t(lang);
+const steps = tr.guideSteps;
+---
+
+<Base lang={lang} title={tr.guide.title}>
+  <section class="bg-brand-green-light border-b border-surface-border">
+    <div class="max-w-content mx-auto px-5 lg:px-8 py-12 md:py-20">
+      <div class="max-w-2xl">
+        <h1 class="text-3xl md:text-4xl font-extrabold text-brand-green mb-3 font-display">{tr.guide.title}</h1>
+        <p class="text-base md:text-lg text-txt-secondary">{tr.guide.subtitle}</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="max-w-3xl mx-auto px-5 lg:px-8 py-10 md:py-16">
+      <div class="flex flex-col gap-4" id="guide-accordion">
+        {steps.map((step, i) => (
+          <div
+            class="guide-step bg-white border border-surface-border rounded-2xl overflow-hidden transition-all shadow-sm"
+            data-index={i}
+          >
+            <button
+              class="guide-step-btn w-full bg-transparent border-none p-5 md:p-6 flex items-center gap-5 cursor-pointer text-left"
+              data-index={i}
+            >
+              <span class="text-3xl md:text-4xl font-extrabold font-display min-w-[48px] step-num text-surface-border-light">
+                {step.num}
+              </span>
+              <div class="flex-1">
+                <div class="text-base md:text-lg font-bold text-txt-primary mb-1">{step.title}</div>
+                <div class="text-sm text-txt-muted">{step.subtitle}</div>
+              </div>
+              <span class="text-xl text-txt-muted step-arrow transition-transform">&rsaquo;</span>
+            </button>
+            <div class="accordion-content">
+              <div>
+                <div class="px-5 md:px-6 pb-6 pl-[76px] md:pl-[88px] animate-in">
+                  <p class="text-sm md:text-base leading-relaxed text-txt-secondary mb-5">{step.content}</p>
+                  {step.actionType === "emergency" ? (
+                    <a
+                      href="tel:192"
+                      class="inline-flex items-center gap-2 bg-brand-red hover:bg-brand-red-hover text-white px-6 py-3 rounded-full text-sm font-bold no-underline transition-colors"
+                    >
+                      &#9743; {step.action}
+                    </a>
+                  ) : step.actionType === "navigate" ? (
+                    <a
+                      href={`/${lang}/ndihme`}
+                      class="inline-flex items-center gap-2 bg-brand-green hover:bg-brand-green-hover text-white px-6 py-3 rounded-full text-sm font-bold no-underline transition-colors"
+                    >
+                      {step.action} &rarr;
+                    </a>
+                  ) : (
+                    <a
+                      href={`/${lang}/dokumento`}
+                      class="inline-flex items-center gap-2 bg-brand-blue text-white hover:opacity-90 px-6 py-3 rounded-full text-sm font-bold no-underline transition-colors"
+                    >
+                      {step.action} &rarr;
+                    </a>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</Base>
+
+<script>
+  const accordion = document.getElementById("guide-accordion");
+  if (accordion) {
+    const steps = accordion.querySelectorAll(".guide-step");
+    const buttons = accordion.querySelectorAll(".guide-step-btn");
+
+    function setActive(index: number) {
+      steps.forEach((step, i) => {
+        const content = step.querySelector(".accordion-content") as HTMLElement;
+        const num = step.querySelector(".step-num") as HTMLElement;
+        const arrow = step.querySelector(".step-arrow") as HTMLElement;
+        const isOpen = i === index;
+
+        if (isOpen) {
+          (step as HTMLElement).style.borderColor = "rgba(45,106,79,0.3)";
+          (step as HTMLElement).style.boxShadow = "0 4px 12px rgba(45,106,79,0.08)";
+          content?.classList.add("open");
+          if (num) num.style.color = "#2d6a4f";
+          if (arrow) arrow.style.transform = "rotate(90deg)";
+        } else {
+          (step as HTMLElement).style.borderColor = "#e2e8f0";
+          (step as HTMLElement).style.boxShadow = "0 1px 2px rgba(0,0,0,0.04)";
+          content?.classList.remove("open");
+          if (num) num.style.color = "#cbd5e1";
+          if (arrow) arrow.style.transform = "rotate(0deg)";
+        }
+      });
+    }
+
+    let currentIndex = 0;
+    setActive(0);
+
+    buttons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const idx = parseInt(btn.getAttribute("data-index") || "0");
+        currentIndex = currentIndex === idx ? -1 : idx;
+        setActive(currentIndex);
+      });
+    });
+  }
+</script>

@@ -1,0 +1,168 @@
+---
+import Base from "../../layouts/Base.astro";
+import LangSwitcher from "../../components/LangSwitcher.astro";
+import { languages, type Lang } from "../../i18n/index";
+import { t } from "../../i18n/translations";
+import { organizations, cities } from "../../data/organizations";
+import { hotlines } from "../../data/hotlines";
+
+export function getStaticPaths() {
+  return Object.keys(languages).map((lang) => ({ params: { lang } }));
+}
+
+const lang = Astro.params.lang as Lang;
+const tr = t(lang);
+const hotlineNames = tr.hotlineNames as Record<string, { name: string; available: string }>;
+---
+
+<Base lang={lang}>
+  <!-- Hero -->
+  <section class="bg-brand-green-light border-b border-surface-border">
+    <div class="max-w-content mx-auto px-5 lg:px-8 py-16 md:py-24">
+      <div class="max-w-2xl">
+        <div class="sm:hidden mb-5">
+          <LangSwitcher lang={lang} currentPath={Astro.url.pathname} />
+        </div>
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight text-brand-green mb-6 font-display">
+          {tr.home.headline}
+        </h1>
+        <p class="text-lg md:text-xl leading-relaxed text-txt-secondary mb-10 max-w-lg">
+          {tr.home.subtitle}
+        </p>
+        <div class="flex flex-col sm:flex-row gap-3">
+          <a
+            href="tel:192"
+            class="inline-flex items-center justify-center gap-2 bg-brand-red hover:bg-brand-red-hover text-white rounded-full px-8 py-4 text-lg font-bold no-underline transition-colors shadow-lg shadow-red-600/20"
+          >
+            &#9743; {tr.home.emergencyAction}
+          </a>
+          <a
+            href="tel:15315"
+            class="inline-flex items-center justify-center gap-2 bg-brand-green hover:bg-brand-green-hover text-white rounded-full px-8 py-4 text-lg font-semibold no-underline transition-colors"
+          >
+            {tr.home.sosNumber}
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Feature cards -->
+  <section class="border-b border-surface-border">
+    <div class="max-w-content mx-auto px-5 lg:px-8 py-12 md:py-16">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        {[
+          {
+            href: `/${lang}/hapat`,
+            title: tr.home.cardGuide,
+            desc: tr.home.cardGuideDesc,
+            bg: "bg-emerald-50 hover:bg-emerald-100 border-emerald-200",
+            titleColor: "text-emerald-800",
+            descColor: "text-emerald-700",
+            arrow: "text-emerald-600",
+          },
+          {
+            href: `/${lang}/ndihme`,
+            title: tr.home.cardResources,
+            desc: `${organizations.length} ${tr.resources.organizationsIn} ${cities.length} ${tr.resources.cities}`,
+            bg: "bg-blue-50 hover:bg-blue-100 border-blue-200",
+            titleColor: "text-blue-800",
+            descColor: "text-blue-700",
+            arrow: "text-blue-600",
+          },
+          {
+            href: `/${lang}/siguria`,
+            title: tr.home.cardSafety,
+            desc: tr.home.cardSafetyDesc,
+            bg: "bg-violet-50 hover:bg-violet-100 border-violet-200",
+            titleColor: "text-violet-800",
+            descColor: "text-violet-700",
+            arrow: "text-violet-600",
+          },
+          {
+            href: `/${lang}/thirr`,
+            title: tr.home.cardHotlines,
+            desc: `${hotlines.length} ${tr.hotlines.title.toLowerCase()}`,
+            bg: "bg-amber-50 hover:bg-amber-100 border-amber-200",
+            titleColor: "text-amber-800",
+            descColor: "text-amber-700",
+            arrow: "text-amber-600",
+          },
+        ].map((card) => (
+          <a
+            href={card.href}
+            class={`group ${card.bg} border rounded-2xl p-6 no-underline transition-all`}
+          >
+            <h3 class={`text-base font-bold ${card.titleColor} mb-2`}>
+              {card.title}
+            </h3>
+            <p class={`text-sm ${card.descColor} leading-relaxed mb-4 opacity-80`}>{card.desc}</p>
+            <span class={`text-sm font-semibold ${card.arrow}`}>
+              &rarr;
+            </span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Browsing safety -->
+  <section class="bg-surface-raised border-b border-surface-border">
+    <div class="max-w-content mx-auto px-5 lg:px-8 py-12 md:py-16">
+      <div class="max-w-2xl mx-auto text-center">
+        <h2 class="text-2xl md:text-3xl font-extrabold text-txt-primary mb-8 font-display">
+          {tr.home.cardSafety}
+        </h2>
+        <div class="flex flex-col gap-3 text-left">
+          <div class="flex items-start gap-3 bg-emerald-50 rounded-xl p-4 border border-emerald-200">
+            <span class="text-emerald-600 mt-0.5 text-lg">&#10003;</span>
+            <span class="text-sm text-emerald-800 leading-relaxed">{tr.home.privacy}</span>
+          </div>
+          <div class="flex items-start gap-3 bg-emerald-50 rounded-xl p-4 border border-emerald-200">
+            <span class="text-emerald-600 mt-0.5 text-lg">&#10003;</span>
+            <span class="text-sm text-emerald-800 leading-relaxed">{tr.home.privacyHistory}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOS numbers quick grid -->
+  <section>
+    <div class="max-w-content mx-auto px-5 lg:px-8 py-12 md:py-16">
+      <h2 class="text-2xl md:text-3xl font-extrabold text-txt-primary mb-8 font-display text-center">
+        {tr.home.cardHotlines}
+      </h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+        {hotlines.filter((h) => h.primary).map((h) => {
+          const hn = hotlineNames[h.key];
+          return (
+            <a
+              href={`tel:${h.number.replace(/[\s\-]/g, "")}`}
+              class="flex items-center justify-between bg-red-50 hover:bg-red-100 border border-red-200 rounded-xl p-4 no-underline transition-colors"
+            >
+              <div>
+                <div class="text-sm font-bold text-red-900">{hn?.name || h.key}</div>
+                <div class="text-xs text-red-600 mt-0.5">{hn?.available || ""}</div>
+              </div>
+              <div class="text-lg font-extrabold bg-brand-red text-white px-3 py-1.5 rounded-lg whitespace-nowrap ml-3">{h.number}</div>
+            </a>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="border-t border-surface-border bg-surface-raised">
+    <div class="max-w-content mx-auto px-5 lg:px-8 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-2.5 text-brand-green text-sm font-semibold">
+        <span class="w-2.5 h-2.5 rounded-full bg-brand-green"></span>
+        Informata
+      </div>
+      <p class="text-xs text-txt-muted text-center">
+        {tr.home.privacy} {tr.home.privacyHistory}
+      </p>
+    </div>
+  </footer>
+</Base>

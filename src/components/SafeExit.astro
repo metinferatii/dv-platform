@@ -1,0 +1,19 @@
+---
+interface Props {
+  label?: string;
+}
+const { label = "Dil shpejt" } = Astro.props;
+---
+
+<button
+  id="safe-exit"
+  class="flex items-center gap-2 bg-brand-red hover:bg-brand-red-hover text-white border-none rounded-full px-5 py-2.5 text-sm font-semibold cursor-pointer transition-colors whitespace-nowrap"
+>
+  {label} &rarr;
+</button>
+
+<script>
+  document.getElementById("safe-exit")?.addEventListener("click", () => {
+    window.location.replace("https://www.google.com");
+  });
+</script>
