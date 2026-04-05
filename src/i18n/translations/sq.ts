@@ -2,7 +2,7 @@ export default {
   // Meta
   meta: {
     title: "Informata  Mbështetje ndaj dhunës në familje",
-    description: "Platforma e parë në shqip për mbështetje ndaj dhunës në familje në Maqedoninë e Veriut.",
+    description: "Platformë për mbështetje ndaj dhunës në familje në Maqedoninë e Veriut.",
   },
 
   // Nav
@@ -21,7 +21,7 @@ export default {
   // Home page
   home: {
     headline: "Nuk je vetëm.",
-    subtitle: "Platforma e parë në shqip për mbështetje ndaj dhunës në familje në Maqedoninë e Veriut.",
+    subtitle: "Platformë për mbështetje ndaj dhunës në familje në Maqedoninë e Veriut.",
     emergencyLabel: "Urgjencë?",
     emergencyAction: "Thirr 192 tani",
     sosLabel: "Linja SOS Nacionale",
@@ -34,6 +34,23 @@ export default {
     cardHotlines: "Të gjitha numrat e ndihmës",
     privacy: "Kjo faqe nuk ruan të dhëna. Asnjë cookie.",
     privacyHistory: "Historiku i shfletuesit mund të fshihet.",
+    providerCTA: "Je organizatë ose profesionist/e? Kontribuo në platformë \u2192",
+  },
+
+  // Contribute page
+  contribute: {
+    title: "Kontribuo në platformë",
+    subtitle: "Nëse jeni organizatë, terapist/e, këshilltar/e ose ofrues tjetër shërbimesh, plotësoni formularin më poshtë për t'u shtuar në platformë.",
+    formNotice: "Të dhënat tuaja do të verifikohen para se të shtohen në platformë.",
+  },
+
+  // Categories
+  categories: {
+    all: "Të gjitha",
+    shelter: "Strehimore",
+    sos: "Linja SOS",
+    legal: "Ndihmë juridike",
+    psycho: "Mbështetje psikologjike",
   },
 
   // Resources

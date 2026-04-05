@@ -1,3 +1,5 @@
+export type OrgCategory = "shelter" | "sos" | "legal" | "psycho";
+
 export interface Organization {
   key: string;
   city: string;
@@ -7,6 +9,7 @@ export interface Organization {
   email?: string;
   website?: string;
   highlight: boolean;
+  categories: OrgCategory[];
 }
 
 export const organizations: Organization[] = [
@@ -19,6 +22,7 @@ export const organizations: Organization[] = [
     email: "info@krizencentar.org.mk",
     website: "https://krizencentar.org.mk",
     highlight: true,
+    categories: ["shelter", "sos", "psycho"],
   },
   {
     key: "mwrc",
@@ -29,6 +33,7 @@ export const organizations: Organization[] = [
     email: "contact@mwrc.com.mk",
     website: "http://www.mwrc.com.mk",
     highlight: true,
+    categories: ["shelter", "legal", "psycho"],
   },
   {
     key: "ncge",
@@ -39,6 +44,7 @@ export const organizations: Organization[] = [
     email: "sozm@t-home.mk",
     website: "http://www.sozm.org.mk",
     highlight: true,
+    categories: ["sos"],
   },
   {
     key: "ozs",
@@ -49,6 +55,7 @@ export const organizations: Organization[] = [
     email: "ozs_skopje@mt.net.mk",
     website: "https://glasprotivnasilstvo.org.mk",
     highlight: false,
+    categories: ["shelter", "sos", "psycho"],
   },
   {
     key: "lastrada",
@@ -59,6 +66,7 @@ export const organizations: Organization[] = [
     email: "lastrada@lastrada.org.mk",
     website: "https://lastrada.org.mk",
     highlight: false,
+    categories: ["shelter", "sos", "psycho"],
   },
   {
     key: "helsinki",
@@ -69,6 +77,7 @@ export const organizations: Organization[] = [
     email: "helkom@mhc.org.mk",
     website: "https://mhc.org.mk",
     highlight: true,
+    categories: ["shelter", "legal"],
   },
   {
     key: "network",
@@ -79,6 +88,7 @@ export const organizations: Organization[] = [
     email: "coordinator@glasprotivnasilstvo.org.mk",
     website: "https://glasprotivnasilstvo.org.mk",
     highlight: false,
+    categories: [],
   },
   {
     key: "ese",
@@ -89,6 +99,7 @@ export const organizations: Organization[] = [
     email: "esem@esem.org.mk",
     website: "https://www.esem.org.mk",
     highlight: false,
+    categories: ["legal", "psycho"],
   },
   {
     key: "hera",
@@ -99,6 +110,7 @@ export const organizations: Organization[] = [
     email: "hera@hera.org.mk",
     website: "https://hera.org.mk",
     highlight: false,
+    categories: ["psycho"],
   },
   {
     key: "mlsp",
@@ -108,6 +120,7 @@ export const organizations: Organization[] = [
     primaryPhone: "+389 2 3106 212",
     website: "https://www.mtsp.gov.mk",
     highlight: false,
+    categories: ["legal"],
   },
   {
     key: "social-work-skopje",
@@ -118,6 +131,7 @@ export const organizations: Organization[] = [
     email: "jumcsrSkopje@mtsp.gov.mk",
     website: "https://www.jumcsrskopje.gov.mk",
     highlight: false,
+    categories: ["legal", "psycho"],
   },
   {
     key: "megjashi",
@@ -127,6 +141,7 @@ export const organizations: Organization[] = [
     email: "alobushavko@megjashi.org.mk",
     website: "https://www.childrensembassy.org.mk",
     highlight: false,
+    categories: ["sos", "psycho"],
   },
   {
     key: "albanian-women-forum",
@@ -136,6 +151,7 @@ export const organizations: Organization[] = [
     primaryPhone: "044 32 666",
     email: "xhane@diplomats.com",
     highlight: true,
+    categories: ["psycho"],
   },
   {
     key: "albanian-women-gostivar",
@@ -144,6 +160,7 @@ export const organizations: Organization[] = [
     phones: ["042 272 517"],
     primaryPhone: "042 272 517",
     highlight: true,
+    categories: ["psycho"],
   },
   {
     key: "jehona",
@@ -153,6 +170,7 @@ export const organizations: Organization[] = [
     primaryPhone: "031 414 039",
     email: "editamet@freemail.com.mk",
     highlight: false,
+    categories: ["psycho"],
   },
   {
     key: "hz-majka",
@@ -163,6 +181,7 @@ export const organizations: Organization[] = [
     email: "info@hzmajka.org.mk",
     website: "https://hzmajka.org.mk",
     highlight: false,
+    categories: ["psycho"],
   },
   {
     key: "sos-kumanovo",
@@ -172,6 +191,7 @@ export const organizations: Organization[] = [
     primaryPhone: "031 411 565",
     email: "sos@mail.net.mk",
     highlight: true,
+    categories: ["sos", "psycho"],
   },
   {
     key: "bisera",
@@ -181,6 +201,7 @@ export const organizations: Organization[] = [
     primaryPhone: "096 264 469",
     email: "bisera@mt.net.mk",
     highlight: true,
+    categories: ["sos", "psycho"],
   },
   {
     key: "hajat",
@@ -190,6 +211,7 @@ export const organizations: Organization[] = [
     primaryPhone: "096 77 110",
     email: "hajat200@freemail.com.mk",
     highlight: true,
+    categories: ["psycho"],
   },
   {
     key: "oz-struga",
@@ -199,6 +221,7 @@ export const organizations: Organization[] = [
     primaryPhone: "096 780 392",
     email: "org_zeni_struga@yahoo.com",
     highlight: false,
+    categories: ["psycho"],
   },
   {
     key: "iskra",
@@ -207,6 +230,7 @@ export const organizations: Organization[] = [
     phones: ["097 257 453"],
     primaryPhone: "097 257 453",
     highlight: true,
+    categories: ["sos", "psycho"],
   },
   {
     key: "oz-bitola",
@@ -216,6 +240,7 @@ export const organizations: Organization[] = [
     primaryPhone: null,
     email: "orgzenibt@live.com",
     highlight: false,
+    categories: ["psycho"],
   },
   {
     key: "oz-kriva-palanka",
@@ -224,6 +249,7 @@ export const organizations: Organization[] = [
     phones: ["031 375 655"],
     primaryPhone: "031 375 655",
     highlight: true,
+    categories: ["psycho"],
   },
   {
     key: "oz-sveti-nikole",
@@ -233,6 +259,7 @@ export const organizations: Organization[] = [
     primaryPhone: "032 444 620",
     email: "womsvetinikole@yahoo.com",
     highlight: true,
+    categories: ["psycho"],
   },
   {
     key: "oz-pehcevo",
@@ -242,6 +269,7 @@ export const organizations: Organization[] = [
     primaryPhone: "033 441 842",
     email: "edkp@mt.net.mk",
     highlight: true,
+    categories: ["psycho"],
   },
   {
     key: "roza",
@@ -250,6 +278,7 @@ export const organizations: Organization[] = [
     phones: ["031 380 017"],
     primaryPhone: "031 380 017",
     highlight: true,
+    categories: ["psycho"],
   },
   {
     key: "zhena",
@@ -258,6 +287,7 @@ export const organizations: Organization[] = [
     phones: ["045 278 110"],
     primaryPhone: "045 278 110",
     highlight: true,
+    categories: ["psycho"],
   },
 ];
 

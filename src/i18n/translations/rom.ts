@@ -1,7 +1,7 @@
 export default {
   meta: {
     title: "Informacie  Akharin pe familijako maripe",
-    description: "Angluno platforma vaš akharin pe familijako maripe ando Utarno Makedonija.",
+    description: "Platforma vaš akharin pe familijako maripe ando Utarno Makedonija.",
   },
 
   nav: {
@@ -17,7 +17,7 @@ export default {
 
   home: {
     headline: "Naj korkori.",
-    subtitle: "Angluno platforma vaš akharin pe familijako maripe ando Utarno Makedonija.",
+    subtitle: "Platforma vaš akharin pe familijako maripe ando Utarno Makedonija.",
     emergencyLabel: "Urgentno?",
     emergencyAction: "Akharin 192 akana",
     sosLabel: "Nacionalno SOS linija",
@@ -30,6 +30,21 @@ export default {
     cardHotlines: "Sa telefonska numeria vaš akharin",
     privacy: "Akaja stranica naj čhuvel podatke. Naj kolačinja.",
     privacyHistory: "Istorija e browserisko šaj te istrinel pe.",
+    providerCTA: "San organizacija vaj profesionalco? De doprinos pe platforma \u2192",
+  },
+
+  contribute: {
+    title: "De doprinos pe platforma",
+    subtitle: "Ako san organizacija, terapeuti, savetnikano vajaver sluzhbashi, pherav o formulari tele te aven shte pe platforma.",
+    formNotice: "Tumare podatke ka oven verificirime angleder te oven shte pe platforma.",
+  },
+
+  categories: {
+    all: "Sa",
+    shelter: "Than te ačhove",
+    sos: "SOS linija",
+    legal: "Hakojutno akharin",
+    psycho: "Psihološko akharin",
   },
 
   resources: {

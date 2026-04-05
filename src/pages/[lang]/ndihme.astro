@@ -12,6 +12,7 @@ export function getStaticPaths() {
 const lang = Astro.params.lang as Lang;
 const tr = t(lang);
 const orgTranslations = tr.orgs as Record<string, { name: string; type: string; desc: string }>;
+const catTranslations = tr.categories as Record<string, string>;
 ---
 
 <Base lang={lang} title={tr.resources.title}>
@@ -28,6 +29,24 @@ const orgTranslations = tr.orgs as Record<string, { name: string; type: string; 
 
   <section>
     <div class="max-w-content mx-auto px-5 lg:px-8 py-8 md:py-12">
+      <!-- Category filter -->
+      <div class="flex gap-2 mb-4 overflow-x-auto pb-2" id="category-filter" style="-webkit-overflow-scrolling: touch">
+        {[
+          { key: "all", label: catTranslations.all },
+          { key: "shelter", label: catTranslations.shelter },
+          { key: "sos", label: catTranslations.sos },
+          { key: "legal", label: catTranslations.legal },
+          { key: "psycho", label: catTranslations.psycho },
+        ].map((cat) => (
+          <button
+            class="cat-btn border border-surface-border rounded-full px-4 py-2 text-sm font-semibold cursor-pointer whitespace-nowrap flex-shrink-0 transition-colors bg-white text-txt-secondary hover:bg-surface-card"
+            data-category={cat.key}
+          >
+            {cat.label}
+          </button>
+        ))}
+      </div>
+
       <!-- City filter -->
       <div
         class="flex gap-2 mb-8 overflow-x-auto pb-2"
@@ -41,7 +60,7 @@ const orgTranslations = tr.orgs as Record<string, { name: string; type: string; 
               class="city-btn border border-surface-border rounded-full px-4 py-2 text-sm font-semibold cursor-pointer whitespace-nowrap flex-shrink-0 transition-colors bg-white text-txt-secondary hover:bg-surface-card"
               data-city={city}
             >
-              {translateCity(city, lang)}<span class="ml-1.5 text-xs opacity-60">{count}</span>
+              {translateCity(city, lang)}<span class="ml-1.5 text-xs opacity-60 city-count">{count}</span>
             </button>
           );
         })}
@@ -55,6 +74,7 @@ const orgTranslations = tr.orgs as Record<string, { name: string; type: string; 
             <div
               class="org-card bg-white border border-surface-border rounded-2xl overflow-hidden transition-all shadow-sm hover:shadow-md"
               data-city={org.city}
+              data-categories={org.categories.join(",")}
               data-index={i}
               style="display: none;"
             >
@@ -117,14 +137,53 @@ const orgTranslations = tr.orgs as Record<string, { name: string; type: string; 
 
 <script>
   const cityFilter = document.getElementById("city-filter");
+  const categoryFilter = document.getElementById("category-filter");
   const orgList = document.getElementById("org-list");
 
-  if (cityFilter && orgList) {
+  if (cityFilter && categoryFilter && orgList) {
     const cityBtns = cityFilter.querySelectorAll(".city-btn");
+    const catBtns = categoryFilter.querySelectorAll(".cat-btn");
     const orgCards = orgList.querySelectorAll(".org-card") as NodeListOf<HTMLElement>;
     const orgToggles = orgList.querySelectorAll(".org-toggle");
 
+    let activeCity = "";
+    let activeCategory = "all";
+
+    function applyFilters() {
+      orgCards.forEach((card) => {
+        const cardCity = card.getAttribute("data-city");
+        const cardCategories = card.getAttribute("data-categories") || "";
+
+        const matchesCity = cardCity === activeCity;
+        const matchesCategory = activeCategory === "all" || cardCategories.split(",").includes(activeCategory);
+
+        card.style.display = matchesCity && matchesCategory ? "block" : "none";
+
+        const content = card.querySelector(".org-content") as HTMLElement;
+        const arrow = card.querySelector(".org-arrow") as HTMLElement;
+        if (content) content.style.display = "none";
+        if (arrow) arrow.style.transform = "rotate(0deg)";
+      });
+
+      // Update city counts based on active category
+      cityBtns.forEach((btn) => {
+        const city = btn.getAttribute("data-city") || "";
+        const countEl = btn.querySelector(".city-count");
+        if (countEl) {
+          let count = 0;
+          orgCards.forEach((card) => {
+            const cardCity = card.getAttribute("data-city");
+            const cardCategories = card.getAttribute("data-categories") || "";
+            const matchesCategory = activeCategory === "all" || cardCategories.split(",").includes(activeCategory);
+            if (cardCity === city && matchesCategory) count++;
+          });
+          countEl.textContent = String(count);
+        }
+      });
+    }
+
     function selectCity(city: string) {
+      activeCity = city;
       cityBtns.forEach((btn) => {
         const isActive = btn.getAttribute("data-city") === city;
         if (isActive) {
@@ -135,20 +194,33 @@ const orgTranslations = tr.orgs as Record<string, { name: string; type: string; 
           btn.classList.add("bg-white", "text-txt-secondary", "border-surface-border");
         }
       });
+      applyFilters();
+    }
 
-      orgCards.forEach((card) => {
-        const cardCity = card.getAttribute("data-city");
-        card.style.display = cardCity === city ? "block" : "none";
-        const content = card.querySelector(".org-content") as HTMLElement;
-        const arrow = card.querySelector(".org-arrow") as HTMLElement;
-        if (content) content.style.display = "none";
-        if (arrow) arrow.style.transform = "rotate(0deg)";
+    function selectCategory(category: string) {
+      activeCategory = category;
+      catBtns.forEach((btn) => {
+        const isActive = btn.getAttribute("data-category") === category;
+        if (isActive) {
+          btn.classList.add("bg-brand-green", "text-white", "border-brand-green");
+          btn.classList.remove("bg-white", "text-txt-secondary", "border-surface-border");
+        } else {
+          btn.classList.remove("bg-brand-green", "text-white", "border-brand-green");
+          btn.classList.add("bg-white", "text-txt-secondary", "border-surface-border");
+        }
       });
+      applyFilters();
     }
 
     cityBtns.forEach((btn) => {
       btn.addEventListener("click", () => {
         selectCity(btn.getAttribute("data-city") || "");
+      });
+    });
+
+    catBtns.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        selectCategory(btn.getAttribute("data-category") || "all");
       });
     });
 
@@ -176,6 +248,8 @@ const orgTranslations = tr.orgs as Record<string, { name: string; type: string; 
       });
     });
 
+    // Initialize: select "all" category and first city
+    selectCategory("all");
     const firstCity = cityBtns[0]?.getAttribute("data-city");
     if (firstCity) selectCity(firstCity);
   }

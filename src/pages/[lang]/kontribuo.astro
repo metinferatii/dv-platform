@@ -1,0 +1,42 @@
+---
+import Base from "../../layouts/Base.astro";
+import { languages, type Lang } from "../../i18n/index";
+import { t } from "../../i18n/translations";
+
+export function getStaticPaths() {
+  return Object.keys(languages).map((lang) => ({ params: { lang } }));
+}
+
+const lang = Astro.params.lang as Lang;
+const tr = t(lang);
+const contrib = tr.contribute as { title: string; subtitle: string; formNotice: string };
+---
+
+<Base lang={lang} title={contrib.title}>
+  <section class="bg-brand-green-light border-b border-surface-border">
+    <div class="max-w-content mx-auto px-5 lg:px-8 py-12 md:py-20">
+      <div class="max-w-2xl">
+        <h1 class="text-3xl md:text-4xl font-extrabold text-brand-green mb-3 font-display">{contrib.title}</h1>
+        <p class="text-base md:text-lg text-txt-secondary">{contrib.subtitle}</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="max-w-content mx-auto px-5 lg:px-8 py-8 md:py-12">
+      <div class="max-w-3xl mx-auto">
+        <iframe
+          src="https://docs.google.com/forms/d/e/PLACEHOLDER/viewform?embedded=true"
+          width="100%"
+          height="800"
+          frameborder="0"
+          marginheight="0"
+          marginwidth="0"
+          class="rounded-2xl border border-surface-border"
+        >
+        </iframe>
+        <p class="text-xs text-txt-muted mt-4 text-center">{contrib.formNotice}</p>
+      </div>
+    </div>
+  </section>
+</Base>

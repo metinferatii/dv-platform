@@ -1,7 +1,7 @@
 export default {
   meta: {
     title: "Info  Domestic Violence Support",
-    description: "The first Albanian-language platform for domestic violence support in North Macedonia.",
+    description: "Support platform for domestic violence in North Macedonia.",
   },
 
   nav: {
@@ -17,7 +17,7 @@ export default {
 
   home: {
     headline: "You are not alone.",
-    subtitle: "The first Albanian-language platform for domestic violence support in North Macedonia.",
+    subtitle: "Support platform for domestic violence in North Macedonia.",
     emergencyLabel: "Emergency?",
     emergencyAction: "Call 192 now",
     sosLabel: "National SOS Line",
@@ -30,6 +30,21 @@ export default {
     cardHotlines: "All helpline numbers",
     privacy: "This page does not store any data. No cookies.",
     privacyHistory: "Browser history can be deleted.",
+    providerCTA: "Are you an organization or professional? Contribute to the platform \u2192",
+  },
+
+  contribute: {
+    title: "Contribute to the platform",
+    subtitle: "If you are an organization, therapist, counselor, or other service provider, fill out the form below to be added to the platform.",
+    formNotice: "Your information will be verified before being added to the platform.",
+  },
+
+  categories: {
+    all: "All",
+    shelter: "Shelter",
+    sos: "SOS Line",
+    legal: "Legal aid",
+    psycho: "Psychological support",
   },
 
   resources: {
