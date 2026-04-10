@@ -337,11 +337,6 @@ export default {
       type: "OJQ lokale  Këshillim & trajnim",
       desc: "Trajnim, edukim, aktivitete humanitare, kujdes psikosocial, dhunë ndaj grave.",
     },
-    "oz-kriva-palanka": {
-      name: "Organizata e Grave  Kriva Pallankë",
-      type: "OJQ lokale  Këshillim & aktivitete",
-      desc: "Të drejtat e grave, aktivitete humanitare, dhunë ndaj grave, shëndet.",
-    },
     "oz-sveti-nikole": {
       name: "Organizata e Grave  Sveti Nikollë",
       type: "OJQ lokale  Këshillim & aktivitete",

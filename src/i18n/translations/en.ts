@@ -322,11 +322,6 @@ export default {
       type: "Local NGO  Counselling & training",
       desc: "Training, education, humanitarian activities, psychosocial care, violence against women.",
     },
-    "oz-kriva-palanka": {
-      name: "Women's Organization  Kriva Palanka",
-      type: "Local NGO  Counselling & activities",
-      desc: "Women's rights, humanitarian activities, violence against women, health.",
-    },
     "oz-sveti-nikole": {
       name: "Women's Organization  Sveti Nikole",
       type: "Local NGO  Counselling & activities",

@@ -13,11 +13,20 @@ const lang = Astro.params.lang as Lang;
 const tr = t(lang);
 const orgTranslations = tr.orgs as Record<string, { name: string; type: string; desc: string }>;
 const catTranslations = tr.categories as Record<string, string>;
+
+const catIcons: Record<string, string> = {
+  all: "&#9881;",
+  shelter: "&#127968;",
+  sos: "&#128222;",
+  legal: "&#9878;",
+  psycho: "&#128156;",
+};
 ---
 
 <Base lang={lang} title={tr.resources.title}>
+  <!-- Hero -->
   <section class="bg-brand-green-light border-b border-surface-border">
-    <div class="max-w-content mx-auto px-5 lg:px-8 py-12 md:py-20">
+    <div class="max-w-content mx-auto px-5 lg:px-8 py-10 md:py-16">
       <div class="max-w-2xl">
         <h1 class="text-3xl md:text-4xl font-extrabold text-brand-green mb-3 font-display">{tr.resources.title}</h1>
         <p class="text-base md:text-lg text-txt-secondary">
@@ -27,109 +36,168 @@ const catTranslations = tr.categories as Record<string, string>;
     </div>
   </section>
 
+  <!-- Main content -->
   <section>
-    <div class="max-w-content mx-auto px-5 lg:px-8 py-8 md:py-12">
-      <!-- Category filter -->
-      <div class="flex gap-2 mb-4 overflow-x-auto pb-2" id="category-filter" style="-webkit-overflow-scrolling: touch">
-        {[
-          { key: "all", label: catTranslations.all },
-          { key: "shelter", label: catTranslations.shelter },
-          { key: "sos", label: catTranslations.sos },
-          { key: "legal", label: catTranslations.legal },
-          { key: "psycho", label: catTranslations.psycho },
-        ].map((cat) => (
-          <button
-            class="cat-btn border border-surface-border rounded-full px-4 py-2 text-sm font-semibold cursor-pointer whitespace-nowrap flex-shrink-0 transition-colors bg-white text-txt-secondary hover:bg-surface-card"
-            data-category={cat.key}
-          >
-            {cat.label}
-          </button>
-        ))}
-      </div>
+    <div class="max-w-content mx-auto px-5 lg:px-8 py-6 md:py-10">
+      <div class="flex flex-col lg:flex-row gap-6 lg:gap-8">
 
-      <!-- City filter -->
-      <div
-        class="flex gap-2 mb-8 overflow-x-auto pb-2"
-        id="city-filter"
-        style="-webkit-overflow-scrolling: touch"
-      >
-        {cities.map((city) => {
-          const count = organizations.filter((o) => o.city === city).length;
-          return (
-            <button
-              class="city-btn border border-surface-border rounded-full px-4 py-2 text-sm font-semibold cursor-pointer whitespace-nowrap flex-shrink-0 transition-colors bg-white text-txt-secondary hover:bg-surface-card"
-              data-city={city}
-            >
-              {translateCity(city, lang)}<span class="ml-1.5 text-xs opacity-60 city-count">{count}</span>
-            </button>
-          );
-        })}
-      </div>
+        <!-- Sidebar: city list -->
+        <aside class="lg:w-56 flex-shrink-0">
+          <nav id="city-filter" class="flex lg:flex-col gap-2 overflow-x-auto lg:overflow-x-visible pb-2 lg:pb-0 lg:sticky lg:top-6" style="-webkit-overflow-scrolling: touch">
+            {cities.map((city) => {
+              const count = organizations.filter((o) => o.city === city).length;
+              return (
+                <button
+                  class="city-btn flex items-center justify-between gap-3 border border-surface-border rounded-xl px-4 py-3 text-sm font-semibold cursor-pointer whitespace-nowrap flex-shrink-0 transition-all bg-white text-txt-secondary hover:bg-surface-card hover:border-brand-green/30 w-full text-left"
+                  data-city={city}
+                >
+                  <span class="flex items-center gap-2">
+                    <span class="text-base opacity-50">&#128205;</span>
+                    {translateCity(city, lang)}
+                  </span>
+                  <span class="city-count bg-surface-card text-txt-muted text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0">{count}</span>
+                </button>
+              );
+            })}
+          </nav>
+        </aside>
 
-      <!-- Organization cards -->
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" id="org-list">
-        {organizations.map((org, i) => {
-          const orgTr = orgTranslations[org.key];
-          return (
-            <div
-              class="org-card bg-white border border-surface-border rounded-2xl overflow-hidden transition-all shadow-sm hover:shadow-md"
-              data-city={org.city}
-              data-categories={org.categories.join(",")}
-              data-index={i}
-              style="display: none;"
-            >
+        <!-- Main column -->
+        <div class="flex-1 min-w-0">
+          <!-- Category filter -->
+          <div class="flex flex-wrap gap-2 mb-6" id="category-filter">
+            {[
+              { key: "all", label: catTranslations.all },
+              { key: "shelter", label: catTranslations.shelter },
+              { key: "sos", label: catTranslations.sos },
+              { key: "legal", label: catTranslations.legal },
+              { key: "psycho", label: catTranslations.psycho },
+            ].map((cat) => (
               <button
-                class="org-toggle w-full bg-transparent border-none p-5 cursor-pointer text-left"
-                data-index={i}
+                class="cat-btn flex items-center gap-1.5 border border-surface-border rounded-xl px-4 py-2.5 text-sm font-semibold cursor-pointer whitespace-nowrap transition-all bg-white text-txt-secondary hover:bg-surface-card hover:border-brand-green/30"
+                data-category={cat.key}
               >
-                <div class="flex justify-between items-start mb-2">
-                  <h3 class="text-sm font-bold text-txt-primary flex-1 leading-snug pr-2">
-                    {orgTr?.name || org.key}
-                  </h3>
-                  <span class="text-base text-txt-muted org-arrow transition-transform flex-shrink-0">&rsaquo;</span>
-                </div>
-                <div class="text-xs font-semibold text-brand-green mb-2">
-                  {orgTr?.type || ""}
-                </div>
-                {org.primaryPhone && (
-                  <div class="text-sm text-brand-green font-medium">&#9743; {org.primaryPhone}</div>
-                )}
+                <span class="text-base" set:html={catIcons[cat.key]} />
+                {cat.label}
               </button>
-              <div class="org-content" style="display: none;">
-                <div class="px-5 pb-5 animate-in border-t border-surface-border pt-4">
-                  <p class="text-sm text-txt-secondary mb-4 leading-relaxed">
-                    {orgTr?.desc || ""}
-                  </p>
-                  {org.address && (
-                    <p class="text-xs text-txt-muted mb-4">&#128205; {org.address}</p>
-                  )}
-                  <div class="flex flex-col gap-2">
-                    {org.phones.map((phone, pi) => (
-                      <a
-                        href={`tel:${phone.replace(/[\s\-\/]/g, "")}`}
-                        class={`flex items-center gap-2 ${
-                          pi === 0
-                            ? "bg-brand-green text-white hover:bg-brand-green-hover"
-                            : "bg-surface-card text-txt-primary border border-surface-border hover:bg-surface-hover"
-                        } p-3 rounded-xl text-sm font-semibold no-underline transition-colors`}
-                      >
-                        &#9743; {phone}
-                      </a>
-                    ))}
-                    {org.email && (
-                      <a
-                        href={`mailto:${org.email}`}
-                        class="flex items-center gap-2 bg-surface-card text-txt-secondary border border-surface-border p-3 rounded-xl text-sm no-underline hover:bg-surface-hover transition-colors"
-                      >
-                        &#9993; {org.email}
-                      </a>
-                    )}
+            ))}
+          </div>
+
+          <!-- Results count -->
+          <p class="text-xs text-txt-muted mb-4" id="results-count"></p>
+
+          <!-- Organization cards -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="org-list">
+            {organizations.map((org, i) => {
+              const orgTr = orgTranslations[org.key];
+              return (
+                <div
+                  class={`org-card rounded-2xl overflow-hidden transition-all shadow-sm hover:shadow-md ${
+                    org.highlight
+                      ? "bg-white border-2 border-brand-green/30 ring-1 ring-brand-green/10"
+                      : "bg-white border border-surface-border"
+                  }`}
+                  data-city={org.city}
+                  data-categories={org.categories.join(",")}
+                  data-index={i}
+                  style="display: none;"
+                >
+                  <button
+                    class="org-toggle w-full bg-transparent border-none p-5 cursor-pointer text-left"
+                    data-index={i}
+                  >
+                    <div class="flex justify-between items-start gap-2">
+                      <div class="flex-1 min-w-0">
+                        <div class="flex items-center gap-2 mb-1.5">
+                          {org.website && (
+                            <img
+                              src={`https://www.google.com/s2/favicons?domain=${new URL(org.website).hostname}&sz=32`}
+                              alt=""
+                              width="18"
+                              height="18"
+                              class="rounded flex-shrink-0 opacity-80"
+                              loading="lazy"
+                            />
+                          )}
+                          <h3 class="text-sm font-bold text-txt-primary leading-snug truncate">
+                            {orgTr?.name || org.key}
+                          </h3>
+                          {org.highlight && (
+                            <span class="flex-shrink-0 w-2 h-2 rounded-full bg-brand-green" title="Verified" />
+                          )}
+                        </div>
+                        <div class="text-xs font-medium text-brand-green mb-2 opacity-80">
+                          {orgTr?.type || ""}
+                        </div>
+                        {org.primaryPhone && (
+                          <div class="text-sm text-txt-primary font-semibold flex items-center gap-1.5">
+                            <span class="text-brand-green">&#9743;</span> {org.primaryPhone}
+                          </div>
+                        )}
+                      </div>
+                      <span class="text-lg text-txt-muted org-arrow transition-transform flex-shrink-0 mt-1">&rsaquo;</span>
+                    </div>
+                  </button>
+
+                  <div class="org-content" style="display: none;">
+                    <div class="px-5 pb-5 border-t border-surface-border/50 pt-4">
+                      <p class="text-sm text-txt-secondary mb-4 leading-relaxed">
+                        {orgTr?.desc || ""}
+                      </p>
+
+                      {org.address && (
+                        <p class="text-xs text-txt-muted mb-4 flex items-start gap-1.5">
+                          <span class="flex-shrink-0">&#128205;</span>
+                          <span>{org.address}</span>
+                        </p>
+                      )}
+
+                      <div class="flex flex-col gap-2">
+                        {org.phones.map((phone, pi) => (
+                          <a
+                            href={`tel:${phone.replace(/[\s\-\/]/g, "")}`}
+                            class={`flex items-center gap-2 ${
+                              pi === 0
+                                ? "bg-brand-green text-white hover:bg-brand-green-hover"
+                                : "bg-surface-card text-txt-primary border border-surface-border hover:bg-surface-hover"
+                            } p-3 rounded-xl text-sm font-semibold no-underline transition-colors`}
+                          >
+                            &#9743; {phone}
+                          </a>
+                        ))}
+
+                        {org.email && (
+                          <a
+                            href={`mailto:${org.email}`}
+                            class="flex items-center gap-2 bg-surface-card text-txt-secondary border border-surface-border p-3 rounded-xl text-sm no-underline hover:bg-surface-hover transition-colors"
+                          >
+                            &#9993; {org.email}
+                          </a>
+                        )}
+
+                        {org.website && (
+                          <a
+                            href={org.website}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="flex items-center gap-2 bg-surface-card text-txt-secondary border border-surface-border p-3 rounded-xl text-sm no-underline hover:bg-surface-hover transition-colors"
+                          >
+                            &#127760; {new URL(org.website).hostname}
+                          </a>
+                        )}
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </div>
-          );
-        })}
+              );
+            })}
+          </div>
+
+          <!-- Empty state -->
+          <div id="empty-state" class="hidden text-center py-16">
+            <p class="text-txt-muted text-sm">&#8212;</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -139,6 +207,8 @@ const catTranslations = tr.categories as Record<string, string>;
   const cityFilter = document.getElementById("city-filter");
   const categoryFilter = document.getElementById("category-filter");
   const orgList = document.getElementById("org-list");
+  const resultsCount = document.getElementById("results-count");
+  const emptyState = document.getElementById("empty-state");
 
   if (cityFilter && categoryFilter && orgList) {
     const cityBtns = cityFilter.querySelectorAll(".city-btn");
@@ -150,20 +220,34 @@ const catTranslations = tr.categories as Record<string, string>;
     let activeCategory = "all";
 
     function applyFilters() {
+      let visibleCount = 0;
+
       orgCards.forEach((card) => {
         const cardCity = card.getAttribute("data-city");
         const cardCategories = card.getAttribute("data-categories") || "";
 
         const matchesCity = cardCity === activeCity;
         const matchesCategory = activeCategory === "all" || cardCategories.split(",").includes(activeCategory);
+        const visible = matchesCity && matchesCategory;
 
-        card.style.display = matchesCity && matchesCategory ? "block" : "none";
+        card.style.display = visible ? "block" : "none";
+        if (visible) visibleCount++;
 
         const content = card.querySelector(".org-content") as HTMLElement;
         const arrow = card.querySelector(".org-arrow") as HTMLElement;
         if (content) content.style.display = "none";
         if (arrow) arrow.style.transform = "rotate(0deg)";
       });
+
+      // Update results count
+      if (resultsCount) {
+        resultsCount.textContent = visibleCount > 0 ? `${visibleCount}` : "";
+      }
+
+      // Show/hide empty state
+      if (emptyState) {
+        emptyState.classList.toggle("hidden", visibleCount > 0);
+      }
 
       // Update city counts based on active category
       cityBtns.forEach((btn) => {
@@ -178,6 +262,13 @@ const catTranslations = tr.categories as Record<string, string>;
             if (cardCity === city && matchesCategory) count++;
           });
           countEl.textContent = String(count);
+
+          // Dim cities with 0 results
+          if (count === 0) {
+            btn.classList.add("opacity-40");
+          } else {
+            btn.classList.remove("opacity-40");
+          }
         }
       });
     }
@@ -189,9 +280,19 @@ const catTranslations = tr.categories as Record<string, string>;
         if (isActive) {
           btn.classList.add("bg-brand-green", "text-white", "border-brand-green");
           btn.classList.remove("bg-white", "text-txt-secondary", "border-surface-border");
+          const countEl = btn.querySelector(".city-count");
+          if (countEl) {
+            countEl.classList.add("bg-white/20", "text-white");
+            countEl.classList.remove("bg-surface-card", "text-txt-muted");
+          }
         } else {
           btn.classList.remove("bg-brand-green", "text-white", "border-brand-green");
           btn.classList.add("bg-white", "text-txt-secondary", "border-surface-border");
+          const countEl = btn.querySelector(".city-count");
+          if (countEl) {
+            countEl.classList.remove("bg-white/20", "text-white");
+            countEl.classList.add("bg-surface-card", "text-txt-muted");
+          }
         }
       });
       applyFilters();

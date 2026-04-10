@@ -322,11 +322,6 @@ export default {
       type: "Lokalna NVO - Savjetovanje i obuke",
       desc: "Obuke, edukacija, humanitarne aktivnosti, psihosocijalna njega, nasilje nad ženama.",
     },
-    "oz-kriva-palanka": {
-      name: "Organizacija žena - Kriva Palanka",
-      type: "Lokalna NVO - Savjetovanje i aktivnosti",
-      desc: "Prava žena, humanitarne aktivnosti, nasilje nad ženama, zdravlje.",
-    },
     "oz-sveti-nikole": {
       name: "Organizacija žena - Sveti Nikole",
       type: "Lokalna NVO - Savjetovanje i aktivnosti",

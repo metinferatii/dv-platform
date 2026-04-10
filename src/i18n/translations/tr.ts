@@ -322,11 +322,6 @@ export default {
       type: "Yerel STK - Danışmanlık ve eğitim",
       desc: "Eğitim, insani faaliyetler, psikososyal bakım, kadına yönelik şiddet.",
     },
-    "oz-kriva-palanka": {
-      name: "Kadınlar Örgütü - Kriva Palanka",
-      type: "Yerel STK - Danışmanlık ve faaliyetler",
-      desc: "Kadın hakları, insani faaliyetler, kadına yönelik şiddet, sağlık.",
-    },
     "oz-sveti-nikole": {
       name: "Kadınlar Örgütü - Sveti Nikole",
       type: "Yerel STK - Danışmanlık ve faaliyetler",

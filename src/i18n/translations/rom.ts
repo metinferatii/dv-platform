@@ -322,11 +322,6 @@ export default {
       type: "Lokalno NVO  Sovetuibe thaj obuke",
       desc: "Obuke, edukacije, humanitarne aktivnostia, psihosocijalno akharin, maripe kontra džuvlja.",
     },
-    "oz-kriva-palanka": {
-      name: "Organizacije e džuvljengiri  Kriva Palanka",
-      type: "Lokalno NVO  Sovetuibe thaj aktivnostia",
-      desc: "Pravuria e džuvljengere, humanitarne aktivnostia, maripe kontra džuvlja, sastipen.",
-    },
     "oz-sveti-nikole": {
       name: "Organizacije e džuvljengiri  Sveti Nikole",
       type: "Lokalno NVO  Sovetuibe thaj aktivnostia",

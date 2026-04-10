@@ -8,7 +8,6 @@ const cityNames: Record<string, Record<Lang, string>> = {
   "Ohër": { sq: "Ohër", mk: "Охрид", en: "Ohrid", tr: "Ohri", bs: "Ohrid", rom: "Ohrid" },
   "Strugë": { sq: "Strugë", mk: "Струга", en: "Struga", tr: "Struga", bs: "Struga", rom: "Struga" },
   "Manastir": { sq: "Manastir", mk: "Битола", en: "Bitola", tr: "Manastir", bs: "Bitola", rom: "Bitola" },
-  "Kriva Pallankë": { sq: "Kriva Pallankë", mk: "Крива Паланка", en: "Kriva Palanka", tr: "Kriva Palanka", bs: "Kriva Palanka", rom: "Kriva Palanka" },
   "Sveti Nikollë": { sq: "Sveti Nikollë", mk: "Свети Николе", en: "Sveti Nikole", tr: "Sveti Nikole", bs: "Sveti Nikole", rom: "Sveti Nikole" },
   "Pehçevë": { sq: "Pehçevë", mk: "Пехчево", en: "Pehchevo", tr: "Pehcevo", bs: "Pehcevo", rom: "Pehcevo" },
   "Rankovce": { sq: "Rankovce", mk: "Ранковце", en: "Rankovce", tr: "Rankovce", bs: "Rankovce", rom: "Rankovce" },
