@@ -102,9 +102,26 @@ const catIcons: Record<string, string> = {
 
       <div class="flex flex-col lg:flex-row gap-6 lg:gap-8">
 
-        <!-- Sidebar: city list -->
-        <aside class="lg:w-56 flex-shrink-0">
-          <nav id="city-filter" class="flex lg:flex-col gap-2 overflow-x-auto lg:overflow-x-visible pb-2 lg:pb-0 lg:sticky lg:top-20" style="-webkit-overflow-scrolling: touch">
+        <!-- Mobile: city dropdown -->
+        <div class="lg:hidden">
+          <select
+            id="city-select"
+            class="w-full border border-surface-border rounded-xl px-4 py-3 text-sm font-semibold bg-white text-txt-secondary cursor-pointer focus:outline-none focus:border-brand-green focus:ring-1 focus:ring-brand-green/20 transition-colors"
+          >
+            {cities.map((city) => {
+              const count = organizations.filter((o) => o.city === city).length;
+              return (
+                <option value={city}>
+                  {translateCity(city, lang)} ({count})
+                </option>
+              );
+            })}
+          </select>
+        </div>
+
+        <!-- Desktop: city sidebar -->
+        <aside class="hidden lg:block lg:w-56 flex-shrink-0">
+          <nav id="city-filter" class="flex flex-col gap-2 lg:sticky lg:top-20">
             {cities.map((city) => {
               const count = organizations.filter((o) => o.city === city).length;
               return (
@@ -307,13 +324,14 @@ const catIcons: Record<string, string> = {
 
 <script>
   const cityFilter = document.getElementById("city-filter");
+  const citySelect = document.getElementById("city-select") as HTMLSelectElement | null;
   const categoryFilter = document.getElementById("category-filter");
   const orgList = document.getElementById("org-list");
   const resultsCount = document.getElementById("results-count");
   const emptyState = document.getElementById("empty-state");
 
-  if (cityFilter && categoryFilter && orgList) {
-    const cityBtns = cityFilter.querySelectorAll(".city-btn");
+  if (categoryFilter && orgList) {
+    const cityBtns = cityFilter?.querySelectorAll(".city-btn") || [];
     const catBtns = categoryFilter.querySelectorAll(".cat-btn");
     const orgCards = orgList.querySelectorAll(".org-card") as NodeListOf<HTMLElement>;
     const orgToggles = orgList.querySelectorAll(".org-toggle");
@@ -373,6 +391,8 @@ const catIcons: Record<string, string> = {
 
     function selectCity(city: string) {
       activeCity = city;
+
+      // Sync desktop sidebar
       cityBtns.forEach((btn) => {
         const isActive = btn.getAttribute("data-city") === city;
         if (isActive) {
@@ -393,6 +413,12 @@ const catIcons: Record<string, string> = {
           }
         }
       });
+
+      // Sync mobile dropdown
+      if (citySelect) {
+        citySelect.value = city;
+      }
+
       applyFilters();
     }
 
@@ -411,10 +437,16 @@ const catIcons: Record<string, string> = {
       applyFilters();
     }
 
+    // Desktop sidebar clicks
     cityBtns.forEach((btn) => {
       btn.addEventListener("click", () => {
         selectCity(btn.getAttribute("data-city") || "");
       });
+    });
+
+    // Mobile dropdown change
+    citySelect?.addEventListener("change", () => {
+      selectCity(citySelect.value);
     });
 
     catBtns.forEach((btn) => {
@@ -448,7 +480,8 @@ const catIcons: Record<string, string> = {
     });
 
     selectCategory("all");
-    const firstCity = cityBtns[0]?.getAttribute("data-city");
+    // Select first city
+    const firstCity = cityBtns[0]?.getAttribute("data-city") || citySelect?.options[0]?.value || "";
     if (firstCity) selectCity(firstCity);
   }
 </script>
