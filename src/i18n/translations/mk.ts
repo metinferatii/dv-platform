@@ -16,7 +16,7 @@ export default {
   exit: "Излези брзо",
 
   home: {
-    headline: "Не си сама.",
+    headline: "Не си сам/а.",
     subtitle: "Платформа за поддршка против семејно насилство во Северна Македонија.",
     emergencyLabel: "Итно?",
     emergencyAction: "Повикај 192 сега",

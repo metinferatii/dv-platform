@@ -16,7 +16,7 @@ export default {
   exit: "Ik sig",
 
   home: {
-    headline: "Naj korkori.",
+    headline: "Naj korkoro/i.",
     subtitle: "Platforma vaš akharin pe familijako maripe ando Utarno Makedonija.",
     emergencyLabel: "Urgentno?",
     emergencyAction: "Akharin 192 akana",

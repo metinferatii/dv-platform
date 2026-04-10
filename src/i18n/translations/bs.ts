@@ -16,7 +16,7 @@ export default {
   exit: "Brzi izlaz",
 
   home: {
-    headline: "Nisi sama.",
+    headline: "Nisi sam/a.",
     subtitle: "Platforma za podršku protiv nasilja u porodici u Sjevernoj Makedoniji.",
     emergencyLabel: "Hitno?",
     emergencyAction: "Pozovi 192 odmah",

@@ -1,6 +1,6 @@
 export const languages = {
-  sq: "Shqip",
   mk: "Македонски",
+  sq: "Shqip",
   en: "English",
   tr: "Türkçe",
   bs: "Bosanski",
@@ -8,7 +8,7 @@ export const languages = {
 } as const;
 
 export type Lang = keyof typeof languages;
-export const defaultLang: Lang = "sq";
+export const defaultLang: Lang = "mk";
 
 export function getLangFromUrl(url: URL): Lang {
   const [, lang] = url.pathname.split("/");

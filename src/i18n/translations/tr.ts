@@ -16,7 +16,7 @@ export default {
   exit: "Hızlı çıkış",
 
   home: {
-    headline: "Yalnız değilsin.",
+    headline: "Yalnız değilsiniz.",
     subtitle: "Kuzey Makedonya'da aile içi şiddete karşı destek platformu.",
     emergencyLabel: "Acil durum?",
     emergencyAction: "192'yi şimdi ara",

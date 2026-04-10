@@ -71,34 +71,14 @@ const catIcons: Record<string, string> = {
     <div class="max-w-content mx-auto px-5 lg:px-8 py-5">
       <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
         {[
-          {
-            href: `/${lang}/hapat`,
-            label: tr.home.cardGuide,
-            icon: "&#9656;",
-            color: "text-emerald-700 bg-emerald-50 border-emerald-200 hover:bg-emerald-100",
-          },
-          {
-            href: `/${lang}/dokumento`,
-            label: tr.nav.doc,
-            icon: "&#9998;",
-            color: "text-blue-700 bg-blue-50 border-blue-200 hover:bg-blue-100",
-          },
-          {
-            href: `/${lang}/siguria`,
-            label: tr.home.cardSafety,
-            icon: "&#9888;",
-            color: "text-violet-700 bg-violet-50 border-violet-200 hover:bg-violet-100",
-          },
-          {
-            href: `/${lang}/thirr`,
-            label: tr.home.cardHotlines,
-            icon: "&#9743;",
-            color: "text-amber-700 bg-amber-50 border-amber-200 hover:bg-amber-100",
-          },
+          { href: `/${lang}/hapat`, label: tr.home.cardGuide, icon: "&#9656;" },
+          { href: `/${lang}/dokumento`, label: tr.nav.doc, icon: "&#9998;" },
+          { href: `/${lang}/siguria`, label: tr.home.cardSafety, icon: "&#9888;" },
+          { href: `/${lang}/thirr`, label: tr.home.cardHotlines, icon: "&#9743;" },
         ].map((link) => (
           <a
             href={link.href}
-            class={`flex items-center gap-2 ${link.color} border rounded-xl px-4 py-3 text-sm font-semibold no-underline transition-colors`}
+            class="flex items-center gap-2 text-brand-green bg-brand-green-light border border-brand-green/15 rounded-xl px-4 py-3 text-sm font-semibold no-underline transition-colors hover:bg-brand-green/10"
           >
             <span set:html={link.icon} />
             {link.label}
