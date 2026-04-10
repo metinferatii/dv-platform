@@ -1,3 +1,10 @@
 ---
-return Astro.redirect("/mk");
+// No server redirect — use client-side meta refresh
 ---
+<html>
+  <head>
+    <meta http-equiv="refresh" content="0;url=/mk" />
+    <link rel="canonical" href="/mk" />
+  </head>
+  <body></body>
+</html>
