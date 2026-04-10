@@ -4,6 +4,7 @@ import LangSwitcher from "../../components/LangSwitcher.astro";
 import { languages, type Lang } from "../../i18n/index";
 import { t } from "../../i18n/translations";
 import { organizations, cities } from "../../data/organizations";
+import { translateCity } from "../../data/cities";
 import { hotlines } from "../../data/hotlines";
 
 export function getStaticPaths() {
@@ -13,129 +14,279 @@ export function getStaticPaths() {
 const lang = Astro.params.lang as Lang;
 const tr = t(lang);
 const hotlineNames = tr.hotlineNames as Record<string, { name: string; available: string }>;
+const orgTranslations = tr.orgs as Record<string, { name: string; type: string; desc: string }>;
+const catTranslations = tr.categories as Record<string, string>;
+
+const catIcons: Record<string, string> = {
+  all: "&#9881;",
+  shelter: "&#127968;",
+  sos: "&#128222;",
+  legal: "&#9878;",
+  psycho: "&#128156;",
+};
 ---
 
 <Base lang={lang}>
-  <!-- Hero -->
+  <!-- Hero — compact, emergency-focused -->
   <section class="bg-brand-green-light border-b border-surface-border">
-    <div class="max-w-content mx-auto px-5 lg:px-8 py-16 md:py-24">
-      <div class="max-w-2xl">
-        <div class="sm:hidden mb-5">
-          <LangSwitcher lang={lang} currentPath={Astro.url.pathname} />
+    <div class="max-w-content mx-auto px-5 lg:px-8 py-10 md:py-14">
+      <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-8">
+        <div class="max-w-xl">
+          <div class="sm:hidden mb-4">
+            <LangSwitcher lang={lang} currentPath={Astro.url.pathname} />
+          </div>
+          <h1 class="text-3xl md:text-4xl lg:text-5xl font-extrabold leading-tight text-brand-green mb-4 font-display">
+            {tr.home.headline}
+          </h1>
+          <p class="text-base md:text-lg leading-relaxed text-txt-secondary max-w-md">
+            {tr.home.subtitle}
+          </p>
         </div>
-        <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight text-brand-green mb-6 font-display">
-          {tr.home.headline}
-        </h1>
-        <p class="text-lg md:text-xl leading-relaxed text-txt-secondary mb-10 max-w-lg">
-          {tr.home.subtitle}
-        </p>
-        <div class="flex flex-col sm:flex-row gap-3">
+        <div class="flex flex-col gap-3 lg:items-end flex-shrink-0">
           <a
             href="tel:192"
-            class="inline-flex items-center justify-center gap-2 bg-brand-red hover:bg-brand-red-hover text-white rounded-full px-8 py-4 text-lg font-bold no-underline transition-colors shadow-lg shadow-red-600/20"
+            class="inline-flex items-center justify-center gap-2 bg-brand-red hover:bg-brand-red-hover text-white rounded-full px-7 py-3.5 text-base font-bold no-underline transition-colors shadow-lg shadow-red-600/20"
           >
             &#9743; {tr.home.emergencyAction}
           </a>
           <a
             href="tel:15315"
-            class="inline-flex items-center justify-center gap-2 bg-brand-green hover:bg-brand-green-hover text-white rounded-full px-8 py-4 text-lg font-semibold no-underline transition-colors"
+            class="inline-flex items-center justify-center gap-2 bg-brand-green hover:bg-brand-green-hover text-white rounded-full px-7 py-3.5 text-base font-semibold no-underline transition-colors"
           >
-            {tr.home.sosNumber}
+            {tr.home.sosLabel}: {tr.home.sosNumber}
           </a>
-        </div>
-        <p class="mt-6 text-sm text-txt-muted">
-          <a href={`/${lang}/kontribuo`} class="underline hover:text-brand-green transition-colors">
+          <a
+            href={`/${lang}/kontribuo`}
+            class="inline-flex items-center justify-center gap-2 border border-surface-border bg-white hover:bg-surface-card text-txt-secondary rounded-full px-7 py-3.5 text-sm font-semibold no-underline transition-colors"
+          >
             {tr.home.providerCTA}
           </a>
-        </p>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Feature cards -->
-  <section class="border-b border-surface-border">
-    <div class="max-w-content mx-auto px-5 lg:px-8 py-12 md:py-16">
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+  <!-- Quick links row -->
+  <section class="border-b border-surface-border bg-white">
+    <div class="max-w-content mx-auto px-5 lg:px-8 py-5">
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
         {[
           {
             href: `/${lang}/hapat`,
-            title: tr.home.cardGuide,
-            desc: tr.home.cardGuideDesc,
-            bg: "bg-emerald-50 hover:bg-emerald-100 border-emerald-200",
-            titleColor: "text-emerald-800",
-            descColor: "text-emerald-700",
-            arrow: "text-emerald-600",
+            label: tr.home.cardGuide,
+            icon: "&#9656;",
+            color: "text-emerald-700 bg-emerald-50 border-emerald-200 hover:bg-emerald-100",
           },
           {
-            href: `/${lang}/ndihme`,
-            title: tr.home.cardResources,
-            desc: `${organizations.length} ${tr.resources.organizationsIn} ${cities.length} ${tr.resources.cities}`,
-            bg: "bg-blue-50 hover:bg-blue-100 border-blue-200",
-            titleColor: "text-blue-800",
-            descColor: "text-blue-700",
-            arrow: "text-blue-600",
+            href: `/${lang}/dokumento`,
+            label: tr.nav.doc,
+            icon: "&#9998;",
+            color: "text-blue-700 bg-blue-50 border-blue-200 hover:bg-blue-100",
           },
           {
             href: `/${lang}/siguria`,
-            title: tr.home.cardSafety,
-            desc: tr.home.cardSafetyDesc,
-            bg: "bg-violet-50 hover:bg-violet-100 border-violet-200",
-            titleColor: "text-violet-800",
-            descColor: "text-violet-700",
-            arrow: "text-violet-600",
+            label: tr.home.cardSafety,
+            icon: "&#9888;",
+            color: "text-violet-700 bg-violet-50 border-violet-200 hover:bg-violet-100",
           },
           {
             href: `/${lang}/thirr`,
-            title: tr.home.cardHotlines,
-            desc: `${hotlines.length} ${tr.hotlines.title.toLowerCase()}`,
-            bg: "bg-amber-50 hover:bg-amber-100 border-amber-200",
-            titleColor: "text-amber-800",
-            descColor: "text-amber-700",
-            arrow: "text-amber-600",
+            label: tr.home.cardHotlines,
+            icon: "&#9743;",
+            color: "text-amber-700 bg-amber-50 border-amber-200 hover:bg-amber-100",
           },
-        ].map((card) => (
+        ].map((link) => (
           <a
-            href={card.href}
-            class={`group ${card.bg} border rounded-2xl p-6 no-underline transition-all`}
+            href={link.href}
+            class={`flex items-center gap-2 ${link.color} border rounded-xl px-4 py-3 text-sm font-semibold no-underline transition-colors`}
           >
-            <h3 class={`text-base font-bold ${card.titleColor} mb-2`}>
-              {card.title}
-            </h3>
-            <p class={`text-sm ${card.descColor} leading-relaxed mb-4 opacity-80`}>{card.desc}</p>
-            <span class={`text-sm font-semibold ${card.arrow}`}>
-              &rarr;
-            </span>
+            <span set:html={link.icon} />
+            {link.label}
           </a>
         ))}
       </div>
     </div>
   </section>
 
-  <!-- Browsing safety -->
-  <section class="bg-surface-raised border-b border-surface-border">
-    <div class="max-w-content mx-auto px-5 lg:px-8 py-12 md:py-16">
-      <div class="max-w-2xl mx-auto text-center">
-        <h2 class="text-2xl md:text-3xl font-extrabold text-txt-primary mb-8 font-display">
-          {tr.home.cardSafety}
+  <!-- Organization directory — main platform content -->
+  <section>
+    <div class="max-w-content mx-auto px-5 lg:px-8 py-6 md:py-10">
+      <div class="mb-6">
+        <h2 class="text-2xl md:text-3xl font-extrabold text-txt-primary font-display">
+          {tr.resources.title}
         </h2>
-        <div class="flex flex-col gap-3 text-left">
-          <div class="flex items-start gap-3 bg-emerald-50 rounded-xl p-4 border border-emerald-200">
-            <span class="text-emerald-600 mt-0.5 text-lg">&#10003;</span>
-            <span class="text-sm text-emerald-800 leading-relaxed">{tr.home.privacy}</span>
+        <p class="text-sm text-txt-muted mt-1">
+          {organizations.length} {tr.resources.organizationsIn} {cities.length} {tr.resources.cities}
+        </p>
+      </div>
+
+      <div class="flex flex-col lg:flex-row gap-6 lg:gap-8">
+
+        <!-- Sidebar: city list -->
+        <aside class="lg:w-56 flex-shrink-0">
+          <nav id="city-filter" class="flex lg:flex-col gap-2 overflow-x-auto lg:overflow-x-visible pb-2 lg:pb-0 lg:sticky lg:top-20" style="-webkit-overflow-scrolling: touch">
+            {cities.map((city) => {
+              const count = organizations.filter((o) => o.city === city).length;
+              return (
+                <button
+                  class="city-btn flex items-center justify-between gap-3 border border-surface-border rounded-xl px-4 py-3 text-sm font-semibold cursor-pointer whitespace-nowrap flex-shrink-0 transition-all bg-white text-txt-secondary hover:bg-surface-card hover:border-brand-green/30 w-full text-left"
+                  data-city={city}
+                >
+                  <span class="flex items-center gap-2">
+                    <span class="text-base opacity-50">&#128205;</span>
+                    {translateCity(city, lang)}
+                  </span>
+                  <span class="city-count bg-surface-card text-txt-muted text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center flex-shrink-0">{count}</span>
+                </button>
+              );
+            })}
+          </nav>
+        </aside>
+
+        <!-- Main column -->
+        <div class="flex-1 min-w-0">
+          <!-- Category filter -->
+          <div class="flex flex-wrap gap-2 mb-6" id="category-filter">
+            {[
+              { key: "all", label: catTranslations.all },
+              { key: "shelter", label: catTranslations.shelter },
+              { key: "sos", label: catTranslations.sos },
+              { key: "legal", label: catTranslations.legal },
+              { key: "psycho", label: catTranslations.psycho },
+            ].map((cat) => (
+              <button
+                class="cat-btn flex items-center gap-1.5 border border-surface-border rounded-xl px-4 py-2.5 text-sm font-semibold cursor-pointer whitespace-nowrap transition-all bg-white text-txt-secondary hover:bg-surface-card hover:border-brand-green/30"
+                data-category={cat.key}
+              >
+                <span class="text-base" set:html={catIcons[cat.key]} />
+                {cat.label}
+              </button>
+            ))}
           </div>
-          <div class="flex items-start gap-3 bg-emerald-50 rounded-xl p-4 border border-emerald-200">
-            <span class="text-emerald-600 mt-0.5 text-lg">&#10003;</span>
-            <span class="text-sm text-emerald-800 leading-relaxed">{tr.home.privacyHistory}</span>
+
+          <!-- Results count -->
+          <p class="text-xs text-txt-muted mb-4" id="results-count"></p>
+
+          <!-- Organization cards -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="org-list">
+            {organizations.map((org, i) => {
+              const orgTr = orgTranslations[org.key];
+              return (
+                <div
+                  class={`org-card rounded-2xl overflow-hidden transition-all shadow-sm hover:shadow-md ${
+                    org.highlight
+                      ? "bg-white border-2 border-brand-green/30 ring-1 ring-brand-green/10"
+                      : "bg-white border border-surface-border"
+                  }`}
+                  data-city={org.city}
+                  data-categories={org.categories.join(",")}
+                  data-index={i}
+                  style="display: none;"
+                >
+                  <button
+                    class="org-toggle w-full bg-transparent border-none p-5 cursor-pointer text-left"
+                    data-index={i}
+                  >
+                    <div class="flex justify-between items-start gap-2">
+                      <div class="flex-1 min-w-0">
+                        <div class="flex items-center gap-2 mb-1.5">
+                          {org.website && (
+                            <img
+                              src={`https://www.google.com/s2/favicons?domain=${new URL(org.website).hostname}&sz=32`}
+                              alt=""
+                              width="18"
+                              height="18"
+                              class="rounded flex-shrink-0 opacity-80"
+                              loading="lazy"
+                            />
+                          )}
+                          <h3 class="text-sm font-bold text-txt-primary leading-snug truncate">
+                            {orgTr?.name || org.key}
+                          </h3>
+                          {org.highlight && (
+                            <span class="flex-shrink-0 w-2 h-2 rounded-full bg-brand-green" title="Verified" />
+                          )}
+                        </div>
+                        <div class="text-xs font-medium text-brand-green mb-2 opacity-80">
+                          {orgTr?.type || ""}
+                        </div>
+                        {org.primaryPhone && (
+                          <div class="text-sm text-txt-primary font-semibold flex items-center gap-1.5">
+                            <span class="text-brand-green">&#9743;</span> {org.primaryPhone}
+                          </div>
+                        )}
+                      </div>
+                      <span class="text-lg text-txt-muted org-arrow transition-transform flex-shrink-0 mt-1">&rsaquo;</span>
+                    </div>
+                  </button>
+
+                  <div class="org-content" style="display: none;">
+                    <div class="px-5 pb-5 border-t border-surface-border/50 pt-4">
+                      <p class="text-sm text-txt-secondary mb-4 leading-relaxed">
+                        {orgTr?.desc || ""}
+                      </p>
+
+                      {org.address && (
+                        <p class="text-xs text-txt-muted mb-4 flex items-start gap-1.5">
+                          <span class="flex-shrink-0">&#128205;</span>
+                          <span>{org.address}</span>
+                        </p>
+                      )}
+
+                      <div class="flex flex-col gap-2">
+                        {org.phones.map((phone, pi) => (
+                          <a
+                            href={`tel:${phone.replace(/[\s\-\/]/g, "")}`}
+                            class={`flex items-center gap-2 ${
+                              pi === 0
+                                ? "bg-brand-green text-white hover:bg-brand-green-hover"
+                                : "bg-surface-card text-txt-primary border border-surface-border hover:bg-surface-hover"
+                            } p-3 rounded-xl text-sm font-semibold no-underline transition-colors`}
+                          >
+                            &#9743; {phone}
+                          </a>
+                        ))}
+
+                        {org.email && (
+                          <a
+                            href={`mailto:${org.email}`}
+                            class="flex items-center gap-2 bg-surface-card text-txt-secondary border border-surface-border p-3 rounded-xl text-sm no-underline hover:bg-surface-hover transition-colors"
+                          >
+                            &#9993; {org.email}
+                          </a>
+                        )}
+
+                        {org.website && (
+                          <a
+                            href={org.website}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="flex items-center gap-2 bg-surface-card text-txt-secondary border border-surface-border p-3 rounded-xl text-sm no-underline hover:bg-surface-hover transition-colors"
+                          >
+                            &#127760; {new URL(org.website).hostname}
+                          </a>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          <!-- Empty state -->
+          <div id="empty-state" class="hidden text-center py-16">
+            <p class="text-txt-muted text-sm">&#8212;</p>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- SOS numbers quick grid -->
-  <section>
-    <div class="max-w-content mx-auto px-5 lg:px-8 py-12 md:py-16">
-      <h2 class="text-2xl md:text-3xl font-extrabold text-txt-primary mb-8 font-display text-center">
+  <!-- SOS numbers -->
+  <section class="border-t border-surface-border bg-surface-raised">
+    <div class="max-w-content mx-auto px-5 lg:px-8 py-10 md:py-14">
+      <h2 class="text-xl md:text-2xl font-extrabold text-txt-primary mb-6 font-display">
         {tr.home.cardHotlines}
       </h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
@@ -159,15 +310,165 @@ const hotlineNames = tr.hotlineNames as Record<string, { name: string; available
   </section>
 
   <!-- Footer -->
-  <footer class="border-t border-surface-border bg-surface-raised">
-    <div class="max-w-content mx-auto px-5 lg:px-8 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-      <div class="flex items-center gap-2.5 text-brand-green text-sm font-semibold">
-        <span class="w-2.5 h-2.5 rounded-full bg-brand-green"></span>
-        Informata
+  <footer class="border-t border-surface-border bg-white">
+    <div class="max-w-content mx-auto px-5 lg:px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="text-brand-green font-extrabold tracking-tight font-display">
+        mira<span class="text-brand-green/40">.</span>
       </div>
-      <p class="text-xs text-txt-muted text-center">
-        {tr.home.privacy} {tr.home.privacyHistory}
-      </p>
+      <div class="flex flex-col sm:flex-row items-center gap-3 text-xs text-txt-muted text-center">
+        <span>{tr.home.privacy}</span>
+        <a href={`/${lang}/kontribuo`} class="underline hover:text-brand-green transition-colors">
+          {tr.home.providerCTA}
+        </a>
+      </div>
     </div>
   </footer>
 </Base>
+
+<script>
+  const cityFilter = document.getElementById("city-filter");
+  const categoryFilter = document.getElementById("category-filter");
+  const orgList = document.getElementById("org-list");
+  const resultsCount = document.getElementById("results-count");
+  const emptyState = document.getElementById("empty-state");
+
+  if (cityFilter && categoryFilter && orgList) {
+    const cityBtns = cityFilter.querySelectorAll(".city-btn");
+    const catBtns = categoryFilter.querySelectorAll(".cat-btn");
+    const orgCards = orgList.querySelectorAll(".org-card") as NodeListOf<HTMLElement>;
+    const orgToggles = orgList.querySelectorAll(".org-toggle");
+
+    let activeCity = "";
+    let activeCategory = "all";
+
+    function applyFilters() {
+      let visibleCount = 0;
+
+      orgCards.forEach((card) => {
+        const cardCity = card.getAttribute("data-city");
+        const cardCategories = card.getAttribute("data-categories") || "";
+
+        const matchesCity = cardCity === activeCity;
+        const matchesCategory = activeCategory === "all" || cardCategories.split(",").includes(activeCategory);
+        const visible = matchesCity && matchesCategory;
+
+        card.style.display = visible ? "block" : "none";
+        if (visible) visibleCount++;
+
+        const content = card.querySelector(".org-content") as HTMLElement;
+        const arrow = card.querySelector(".org-arrow") as HTMLElement;
+        if (content) content.style.display = "none";
+        if (arrow) arrow.style.transform = "rotate(0deg)";
+      });
+
+      if (resultsCount) {
+        resultsCount.textContent = visibleCount > 0 ? `${visibleCount}` : "";
+      }
+
+      if (emptyState) {
+        emptyState.classList.toggle("hidden", visibleCount > 0);
+      }
+
+      cityBtns.forEach((btn) => {
+        const city = btn.getAttribute("data-city") || "";
+        const countEl = btn.querySelector(".city-count");
+        if (countEl) {
+          let count = 0;
+          orgCards.forEach((card) => {
+            const cardCity = card.getAttribute("data-city");
+            const cardCategories = card.getAttribute("data-categories") || "";
+            const matchesCategory = activeCategory === "all" || cardCategories.split(",").includes(activeCategory);
+            if (cardCity === city && matchesCategory) count++;
+          });
+          countEl.textContent = String(count);
+
+          if (count === 0) {
+            btn.classList.add("opacity-40");
+          } else {
+            btn.classList.remove("opacity-40");
+          }
+        }
+      });
+    }
+
+    function selectCity(city: string) {
+      activeCity = city;
+      cityBtns.forEach((btn) => {
+        const isActive = btn.getAttribute("data-city") === city;
+        if (isActive) {
+          btn.classList.add("bg-brand-green", "text-white", "border-brand-green");
+          btn.classList.remove("bg-white", "text-txt-secondary", "border-surface-border");
+          const countEl = btn.querySelector(".city-count");
+          if (countEl) {
+            countEl.classList.add("bg-white/20", "text-white");
+            countEl.classList.remove("bg-surface-card", "text-txt-muted");
+          }
+        } else {
+          btn.classList.remove("bg-brand-green", "text-white", "border-brand-green");
+          btn.classList.add("bg-white", "text-txt-secondary", "border-surface-border");
+          const countEl = btn.querySelector(".city-count");
+          if (countEl) {
+            countEl.classList.remove("bg-white/20", "text-white");
+            countEl.classList.add("bg-surface-card", "text-txt-muted");
+          }
+        }
+      });
+      applyFilters();
+    }
+
+    function selectCategory(category: string) {
+      activeCategory = category;
+      catBtns.forEach((btn) => {
+        const isActive = btn.getAttribute("data-category") === category;
+        if (isActive) {
+          btn.classList.add("bg-brand-green", "text-white", "border-brand-green");
+          btn.classList.remove("bg-white", "text-txt-secondary", "border-surface-border");
+        } else {
+          btn.classList.remove("bg-brand-green", "text-white", "border-brand-green");
+          btn.classList.add("bg-white", "text-txt-secondary", "border-surface-border");
+        }
+      });
+      applyFilters();
+    }
+
+    cityBtns.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        selectCity(btn.getAttribute("data-city") || "");
+      });
+    });
+
+    catBtns.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        selectCategory(btn.getAttribute("data-category") || "all");
+      });
+    });
+
+    orgToggles.forEach((toggle) => {
+      toggle.addEventListener("click", () => {
+        const idx = parseInt(toggle.getAttribute("data-index") || "-1");
+        const card = orgCards[idx];
+        if (!card) return;
+
+        const content = card.querySelector(".org-content") as HTMLElement;
+        const arrow = card.querySelector(".org-arrow") as HTMLElement;
+        const isOpen = content?.style.display === "block";
+
+        orgCards.forEach((c) => {
+          const ct = c.querySelector(".org-content") as HTMLElement;
+          const ar = c.querySelector(".org-arrow") as HTMLElement;
+          if (ct) ct.style.display = "none";
+          if (ar) ar.style.transform = "rotate(0deg)";
+        });
+
+        if (!isOpen) {
+          if (content) content.style.display = "block";
+          if (arrow) arrow.style.transform = "rotate(90deg)";
+        }
+      });
+    });
+
+    selectCategory("all");
+    const firstCity = cityBtns[0]?.getAttribute("data-city");
+    if (firstCity) selectCity(firstCity);
+  }
+</script>

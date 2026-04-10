@@ -25,7 +25,6 @@ const currentPath = Astro.url.pathname;
     <meta name="description" content={tr.meta.description} />
     <meta name="robots" content="noindex, nofollow" />
     <title>{title}</title>
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   </head>
   <body class="font-sans bg-white text-txt-primary">
     <EmergencyBanner
@@ -34,7 +33,7 @@ const currentPath = Astro.url.pathname;
       number="192"
     />
     <TopNav currentPath={currentPath} lang={lang} />
-    <main>
+    <main class="pb-20 md:pb-0">
       <slot />
     </main>
     <BottomNav currentPath={currentPath} lang={lang} />

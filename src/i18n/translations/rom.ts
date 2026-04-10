@@ -1,6 +1,6 @@
 export default {
   meta: {
-    title: "Informacie  Akharin pe familijako maripe",
+    title: "Mira  Akharin pe familijako maripe",
     description: "Platforma vaš akharin pe familijako maripe ando Utarno Makedonija.",
   },
 

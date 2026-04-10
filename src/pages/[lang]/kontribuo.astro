@@ -73,7 +73,7 @@ const hintClass = "text-xs text-txt-muted mt-1";
           class="space-y-6"
         >
           <!-- Formsubmit config -->
-          <input type="hidden" name="_subject" value="New organization submission - Informata DV Platform" />
+          <input type="hidden" name="_subject" value="New organization submission - Mira DV Platform" />
           <input type="hidden" name="_captcha" value="true" />
           <input type="hidden" name="_template" value="table" />
           <input type="text" name="_honey" style="display:none" />
@@ -165,7 +165,7 @@ const hintClass = "text-xs text-txt-muted mt-1";
           <!-- Categories (checkboxes) -->
           <div>
             <p class={labelClass}>{f.categories} *</p>
-            <div class="grid grid-cols-2 gap-2 mt-2">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-2">
               {(["shelter", "sos", "legal", "psycho"] as const).map((cat) => (
                 <label class="flex items-center gap-2.5 border border-surface-border rounded-xl px-4 py-3 cursor-pointer hover:bg-surface-card transition-colors text-sm">
                   <input

@@ -1,6 +1,6 @@
 export default {
   meta: {
-    title: "Informacije - Podrška protiv nasilja u porodici",
+    title: "Mira - Podrška protiv nasilja u porodici",
     description: "Platforma za podršku protiv nasilja u porodici u Sjevernoj Makedoniji.",
   },
 

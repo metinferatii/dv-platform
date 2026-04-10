@@ -1,7 +1,7 @@
 export default {
   // Meta
   meta: {
-    title: "Informata  Mbështetje ndaj dhunës në familje",
+    title: "Mira  Mbështetje ndaj dhunës në familje",
     description: "Platformë për mbështetje ndaj dhunës në familje në Maqedoninë e Veriut.",
   },
 

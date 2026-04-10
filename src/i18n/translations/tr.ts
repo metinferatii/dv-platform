@@ -1,6 +1,6 @@
 export default {
   meta: {
-    title: "Bilgi - Aile içi şiddet desteği",
+    title: "Mira - Aile içi şiddet desteği",
     description: "Kuzey Makedonya'da aile içi şiddete karşı destek platformu.",
   },
 

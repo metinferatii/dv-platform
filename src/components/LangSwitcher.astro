@@ -21,7 +21,7 @@ const pathWithoutLang = getPathWithoutLang(new URL(currentPath, "https://x.com")
           : "bg-surface-card text-txt-secondary hover:bg-surface-hover hover:text-txt-primary",
       ]}
     >
-      {label}
+      {code === "rom" ? "ROM" : code.toUpperCase()}
     </a>
   ))}
 </div>

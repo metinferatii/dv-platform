@@ -1,6 +1,6 @@
 export default {
   meta: {
-    title: "Info  Domestic Violence Support",
+    title: "Mira  Domestic Violence Support",
     description: "Support platform for domestic violence in North Macedonia.",
   },
 
