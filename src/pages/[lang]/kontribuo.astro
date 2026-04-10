@@ -2,6 +2,8 @@
 import Base from "../../layouts/Base.astro";
 import { languages, type Lang } from "../../i18n/index";
 import { t } from "../../i18n/translations";
+import { cities } from "../../data/organizations";
+import { translateCity } from "../../data/cities";
 
 export function getStaticPaths() {
   return Object.keys(languages).map((lang) => ({ params: { lang } }));
@@ -9,12 +11,43 @@ export function getStaticPaths() {
 
 const lang = Astro.params.lang as Lang;
 const tr = t(lang);
-const contrib = tr.contribute as { title: string; subtitle: string; formNotice: string };
+const contrib = tr.contribute as {
+  title: string;
+  subtitle: string;
+  formNotice: string;
+  fields: {
+    orgName: string;
+    orgType: string;
+    orgTypeOptions: { ngo: string; institution: string; ngoNetwork: string; localNgo: string };
+    city: string;
+    address: string;
+    phones: string;
+    phonesHint: string;
+    email: string;
+    website: string;
+    categories: string;
+    description: string;
+    descriptionHint: string;
+    contactPerson: string;
+    availability: string;
+    availabilityHint: string;
+    verification: string;
+    submit: string;
+    success: string;
+  };
+};
+const f = contrib.fields;
+const catTranslations = tr.categories as Record<string, string>;
+
+const inputClass = "w-full border border-surface-border rounded-xl px-4 py-3 text-sm bg-white text-txt-primary placeholder:text-txt-muted/50 focus:outline-none focus:border-brand-green focus:ring-1 focus:ring-brand-green/20 transition-colors";
+const labelClass = "block text-sm font-semibold text-txt-primary mb-1.5";
+const hintClass = "text-xs text-txt-muted mt-1";
 ---
 
 <Base lang={lang} title={contrib.title}>
+  <!-- Hero -->
   <section class="bg-brand-green-light border-b border-surface-border">
-    <div class="max-w-content mx-auto px-5 lg:px-8 py-12 md:py-20">
+    <div class="max-w-content mx-auto px-5 lg:px-8 py-10 md:py-16">
       <div class="max-w-2xl">
         <h1 class="text-3xl md:text-4xl font-extrabold text-brand-green mb-3 font-display">{contrib.title}</h1>
         <p class="text-base md:text-lg text-txt-secondary">{contrib.subtitle}</p>
@@ -22,21 +55,211 @@ const contrib = tr.contribute as { title: string; subtitle: string; formNotice: 
     </div>
   </section>
 
+  <!-- Form -->
   <section>
     <div class="max-w-content mx-auto px-5 lg:px-8 py-8 md:py-12">
-      <div class="max-w-3xl mx-auto">
-        <iframe
-          src="https://docs.google.com/forms/d/e/PLACEHOLDER/viewform?embedded=true"
-          width="100%"
-          height="800"
-          frameborder="0"
-          marginheight="0"
-          marginwidth="0"
-          class="rounded-2xl border border-surface-border"
+      <div class="max-w-2xl mx-auto">
+
+        <!-- Success message (hidden by default) -->
+        <div id="form-success" class="hidden bg-brand-green/10 border border-brand-green/30 rounded-2xl p-6 text-center">
+          <p class="text-brand-green font-semibold text-lg mb-2">&#10003;</p>
+          <p class="text-sm text-brand-green font-medium">{f.success}</p>
+        </div>
+
+        <form
+          id="contrib-form"
+          action="https://formsubmit.co/metinferati15@gmail.com"
+          method="POST"
+          class="space-y-6"
         >
-        </iframe>
-        <p class="text-xs text-txt-muted mt-4 text-center">{contrib.formNotice}</p>
+          <!-- Formsubmit config -->
+          <input type="hidden" name="_subject" value="New organization submission - Informata DV Platform" />
+          <input type="hidden" name="_captcha" value="true" />
+          <input type="hidden" name="_template" value="table" />
+          <input type="text" name="_honey" style="display:none" />
+          <input type="hidden" name="_next" id="form-redirect" />
+
+          <!-- Organization name -->
+          <div>
+            <label for="org-name" class={labelClass}>{f.orgName} *</label>
+            <input
+              type="text"
+              id="org-name"
+              name="Organization Name"
+              required
+              class={inputClass}
+            />
+          </div>
+
+          <!-- Org type + City row -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label for="org-type" class={labelClass}>{f.orgType} *</label>
+              <select id="org-type" name="Organization Type" required class={inputClass}>
+                <option value="" disabled selected>—</option>
+                <option value="NGO">{f.orgTypeOptions.ngo}</option>
+                <option value="State institution">{f.orgTypeOptions.institution}</option>
+                <option value="NGO network">{f.orgTypeOptions.ngoNetwork}</option>
+                <option value="Local women's NGO">{f.orgTypeOptions.localNgo}</option>
+              </select>
+            </div>
+            <div>
+              <label for="city" class={labelClass}>{f.city} *</label>
+              <select id="city" name="City" required class={inputClass}>
+                <option value="" disabled selected>—</option>
+                {cities.map((city) => (
+                  <option value={translateCity(city, "en")}>{translateCity(city, lang)}</option>
+                ))}
+                <option value="Other">—</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Address -->
+          <div>
+            <label for="address" class={labelClass}>{f.address}</label>
+            <input
+              type="text"
+              id="address"
+              name="Address"
+              class={inputClass}
+            />
+          </div>
+
+          <!-- Phones + Email row -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label for="phones" class={labelClass}>{f.phones} *</label>
+              <textarea
+                id="phones"
+                name="Phone Numbers"
+                required
+                rows="3"
+                class={inputClass}
+                style="resize: vertical;"
+              ></textarea>
+              <p class={hintClass}>{f.phonesHint}</p>
+            </div>
+            <div>
+              <label for="email" class={labelClass}>{f.email} *</label>
+              <input
+                type="email"
+                id="email"
+                name="Email"
+                required
+                class={inputClass}
+              />
+              <div class="mt-4">
+                <label for="website" class={labelClass}>{f.website}</label>
+                <input
+                  type="url"
+                  id="website"
+                  name="Website"
+                  placeholder="https://"
+                  class={inputClass}
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- Categories (checkboxes) -->
+          <div>
+            <p class={labelClass}>{f.categories} *</p>
+            <div class="grid grid-cols-2 gap-2 mt-2">
+              {(["shelter", "sos", "legal", "psycho"] as const).map((cat) => (
+                <label class="flex items-center gap-2.5 border border-surface-border rounded-xl px-4 py-3 cursor-pointer hover:bg-surface-card transition-colors text-sm">
+                  <input
+                    type="checkbox"
+                    name="Categories"
+                    value={cat}
+                    class="w-4 h-4 accent-brand-green rounded"
+                  />
+                  <span class="text-txt-primary">{catTranslations[cat]}</span>
+                </label>
+              ))}
+            </div>
+          </div>
+
+          <!-- Description -->
+          <div>
+            <label for="description" class={labelClass}>{f.description} *</label>
+            <textarea
+              id="description"
+              name="Description"
+              required
+              rows="3"
+              class={inputClass}
+              style="resize: vertical;"
+            ></textarea>
+            <p class={hintClass}>{f.descriptionHint}</p>
+          </div>
+
+          <!-- Contact person + Availability row -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label for="contact-person" class={labelClass}>{f.contactPerson}</label>
+              <input
+                type="text"
+                id="contact-person"
+                name="Contact Person"
+                class={inputClass}
+              />
+            </div>
+            <div>
+              <label for="availability" class={labelClass}>{f.availability}</label>
+              <input
+                type="text"
+                id="availability"
+                name="Availability"
+                class={inputClass}
+              />
+              <p class={hintClass}>{f.availabilityHint}</p>
+            </div>
+          </div>
+
+          <!-- Verification -->
+          <div>
+            <label for="verification" class={labelClass}>{f.verification}</label>
+            <textarea
+              id="verification"
+              name="Verification Method"
+              rows="2"
+              class={inputClass}
+              style="resize: vertical;"
+            ></textarea>
+          </div>
+
+          <!-- Notice + Submit -->
+          <div class="border-t border-surface-border pt-6">
+            <p class="text-xs text-txt-muted mb-4">{contrib.formNotice}</p>
+            <button
+              type="submit"
+              class="w-full sm:w-auto bg-brand-green text-white font-semibold px-8 py-3 rounded-xl hover:bg-brand-green-hover transition-colors text-sm cursor-pointer border-none"
+            >
+              {f.submit}
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   </section>
 </Base>
+
+<script>
+  // Set redirect URL to current page with success param
+  const redirectInput = document.getElementById("form-redirect") as HTMLInputElement;
+  if (redirectInput) {
+    const url = new URL(window.location.href);
+    url.searchParams.set("success", "1");
+    redirectInput.value = url.toString();
+  }
+
+  // Show success message if redirected back
+  const params = new URLSearchParams(window.location.search);
+  if (params.get("success") === "1") {
+    const form = document.getElementById("contrib-form");
+    const success = document.getElementById("form-success");
+    if (form) form.classList.add("hidden");
+    if (success) success.classList.remove("hidden");
+  }
+</script>
