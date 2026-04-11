@@ -21,7 +21,7 @@ export default {
   // Home page
   home: {
     headline: "Nuk je vetëm.",
-    subtitle: "Platformë për mbështetje ndaj dhunës në familje në Maqedoninë e Veriut.",
+    subtitle: "Platformë për mbështetjen e viktimave të dhunës në familje në Maqedoninë e Veriut.",
     emergencyLabel: "Urgjencë?",
     emergencyAction: "Thirr 192 tani",
     sosLabel: "Linja SOS Nacionale",

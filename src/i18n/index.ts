@@ -3,7 +3,7 @@ export const languages = {
   sq: "Shqip",
   en: "English",
   tr: "Türkçe",
-  bs: "Bosanski",
+  bcms: "Bosanski",
   rom: "Romani",
 } as const;
 
