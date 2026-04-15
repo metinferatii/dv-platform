@@ -75,6 +75,7 @@ export default {
   resources: {
     title: "Arakh akharin",
     organizationsIn: "organizacie ando",
+    verified: "Verifikuime",
     cities: "foruria",
   },
 
@@ -117,7 +118,7 @@ export default {
       num: "03",
       title: "Rod pravno akharin",
       subtitle: "Si tut pravia  koristin len",
-      content: "Šaj te avel tut zaštitno naredba bi advokatisko. Dža ko najbližno osnovno sudišće. ESE del besplatno pravno akharin (02 3298 295). Helsinški komiteti si les besplatno linija: 0800 44 222.",
+      content: "Šaj te avel tut zaštitno naredba bi advokatisko. Dža ko najbližno osnovno sudišće. Dža ko lokalno ofiso e Ministeriesko vash Justicia. ESE del besplatno pravno akharin (02 3298 295). Helsinški komiteti si les besplatno linija: 0800 44 222.",
       action: "Dikh organizacie",
       actionType: "navigate" as const,
     },

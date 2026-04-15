@@ -75,6 +75,7 @@ export default {
   resources: {
     title: "Find help",
     organizationsIn: "organizations in",
+    verified: "Verified",
     cities: "cities",
   },
 
@@ -117,7 +118,7 @@ export default {
       num: "03",
       title: "Seek legal help",
       subtitle: "You have rights  use them",
-      content: "You can get a protection order without a lawyer. Go to the nearest basic court. ESE offers free legal help (02 3298 295). The Helsinki Committee has a free line: 0800 44 222.",
+      content: "You can get a protection order without a lawyer. Go to the nearest basic court. Go to the local office of the Ministry of Justice. ESE offers free legal help (02 3298 295). The Helsinki Committee has a free line: 0800 44 222.",
       action: "View organizations",
       actionType: "navigate" as const,
     },

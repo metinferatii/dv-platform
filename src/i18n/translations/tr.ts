@@ -75,6 +75,7 @@ export default {
   resources: {
     title: "Yardım bul",
     organizationsIn: "kuruluşlar",
+    verified: "Doğrulandı",
     cities: "şehirde",
   },
 
@@ -117,7 +118,7 @@ export default {
       num: "03",
       title: "Hukuki yardım iste",
       subtitle: "Hakların var, kullan onları",
-      content: "Avukatsız koruma emri alabilirsin. En yakın temel mahkemeye git. ESE ücretsiz hukuki yardım sunuyor (02 3298 295). Helsinki Komitesi'nin ücretsiz hattı: 0800 44 222.",
+      content: "Avukatsız koruma emri alabilirsin. En yakın temel mahkemeye git. Adalet Bakanlığı'nın yerel ofisine gidin. ESE ücretsiz hukuki yardım sunuyor (02 3298 295). Helsinki Komitesi'nin ücretsiz hattı: 0800 44 222.",
       action: "Kuruluşları gör",
       actionType: "navigate" as const,
     },

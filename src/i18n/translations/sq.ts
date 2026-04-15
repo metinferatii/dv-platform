@@ -1,8 +1,8 @@
 export default {
   // Meta
   meta: {
-    title: "Mira  Mbështetje ndaj dhunës në familje",
-    description: "Platformë për mbështetje ndaj dhunës në familje në Maqedoninë e Veriut.",
+    title: "Mira  Mbështetje kundër dhunës në familje",
+    description: "Platformë për mbështetje kundër dhunës në familje në Maqedoninë e Veriut.",
   },
 
   // Nav
@@ -82,6 +82,7 @@ export default {
   resources: {
     title: "Gjej ndihmë",
     organizationsIn: "organizata në",
+    verified: "Verifikuar",
     cities: "qytete",
   },
 
@@ -128,7 +129,7 @@ export default {
       num: "03",
       title: "Kërko ndihmë ligjore",
       subtitle: "Ke të drejta  përdori ato",
-      content: "Mund të marrësh urdhër mbrojtjeje pa avokat. Shko në gjykatën themelore më të afërt. ESE ofron ndihmë ligjore falas (02 3298 295). Komiteti i Helsinkit ka linjë falas: 0800 44 222.",
+      content: "Mund të marrësh urdhër mbrojtjeje pa avokat. Shko në gjykatën themelore më të afërt. Shko në zyrën lokale të Ministrisë së Drejtësisë. ESE ofron ndihmë ligjore falas (02 3298 295). Komiteti i Helsinkit ka linjë falas: 0800 44 222.",
       action: "Shiko organizatat",
       actionType: "navigate" as const,
     },

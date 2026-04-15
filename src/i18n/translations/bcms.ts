@@ -75,6 +75,7 @@ export default {
   resources: {
     title: "Pronađi pomoć",
     organizationsIn: "organizacija u",
+    verified: "Provjereno",
     cities: "gradova",
   },
 
@@ -117,7 +118,7 @@ export default {
       num: "03",
       title: "Potraži pravnu pomoć",
       subtitle: "Imaš prava, iskoristi ih",
-      content: "Možeš dobiti zaštitnu mjeru bez advokata. Idi u najbliži osnovni sud. ESE nudi besplatnu pravnu pomoć (02 3298 295). Helsinški komitet ima besplatnu liniju: 0800 44 222.",
+      content: "Možeš dobiti zaštitnu mjeru bez advokata. Idi u najbliži osnovni sud. Idite u lokalnu kancelariju Ministarstva pravde. ESE nudi besplatnu pravnu pomoć (02 3298 295). Helsinški komitet ima besplatnu liniju: 0800 44 222.",
       action: "Pogledaj organizacije",
       actionType: "navigate" as const,
     },

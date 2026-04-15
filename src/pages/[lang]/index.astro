@@ -3,7 +3,8 @@ import Base from "../../layouts/Base.astro";
 import LangSwitcher from "../../components/LangSwitcher.astro";
 import { languages, type Lang } from "../../i18n/index";
 import { t } from "../../i18n/translations";
-import { organizations, cities } from "../../data/organizations";
+import { organizations as rawOrganizations, cities } from "../../data/organizations";
+const organizations = [...rawOrganizations].sort((a, b) => Number(!!b.highlight) - Number(!!a.highlight));
 import { translateCity } from "../../data/cities";
 import { hotlines } from "../../data/hotlines";
 
@@ -201,7 +202,10 @@ const catIcons: Record<string, string> = {
                             {orgTr?.name || org.key}
                           </h3>
                           {org.highlight && (
-                            <span class="flex-shrink-0 w-2 h-2 rounded-full bg-brand-green" title="Verified" />
+                            <span class="flex-shrink-0 inline-flex items-center gap-1 bg-brand-green/10 text-brand-green text-[10px] font-bold uppercase tracking-wide px-1.5 py-0.5 rounded-full border border-brand-green/20" title="Verified">
+                              <span aria-hidden="true">&#10003;</span>
+                              <span>{tr.resources.verified || "Verified"}</span>
+                            </span>
                           )}
                         </div>
                         <div class="text-xs font-medium text-brand-green mb-2 opacity-80">

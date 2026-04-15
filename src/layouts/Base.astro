@@ -25,6 +25,8 @@ const currentPath = Astro.url.pathname;
     <meta name="description" content={tr.meta.description} />
     <meta name="robots" content="noindex, nofollow" />
     <title>{title}</title>
+    <!-- 100% privacy-first analytics -->
+    <script data-collect-dnt="true" async src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
   </head>
   <body class="font-sans bg-white text-txt-primary">
     <EmergencyBanner
