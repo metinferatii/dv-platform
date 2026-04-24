@@ -129,7 +129,7 @@ export default {
       num: "03",
       title: "Kërko ndihmë ligjore",
       subtitle: "Ke të drejta  përdori ato",
-      content: "Mund të marrësh urdhër mbrojtjeje pa avokat. Shko në gjykatën themelore më të afërt. Shko në zyrën lokale të Ministrisë së Drejtësisë. ESE ofron ndihmë ligjore falas (02 3298 295). Komiteti i Helsinkit ka linjë falas: 0800 44 222.",
+      content: "Mund të marrësh urdhër mbrojtjeje pa avokat. Shko në zyrën lokale të Ministrisë së Drejtësisë. ESE ofron ndihmë ligjore falas (02 3298 295). Komiteti i Helsinkit ka linjë falas: 0800 44 222.",
       action: "Shiko organizatat",
       actionType: "navigate" as const,
     },
@@ -382,6 +382,99 @@ export default {
       name: "Shoqata 'Zhena'  Samokov",
       type: "OJQ lokale  Këshillim & aktivitete",
       desc: "Aktivizëm, kërkim, dhunë ndaj grave, kujdes psikosocial, shëndet.",
+    },
+  },
+
+  // Legal
+  legal: {
+    lastUpdated: "Përditësuar: Prill 2026",
+    privacyLink: "Politika e privatësisë",
+    cookiesLink: "Politika e cookie-ve",
+    backHome: "Kthehu në ballinë",
+    banner: {
+      message: "Kjo faqe përdor analitikë që respekton privatësinë. Asnjë cookie, asnjë gjurmim, asnjë e dhënë personale.",
+      accept: "Në rregull",
+      more: "Mëso më shumë",
+    },
+    privacy: {
+      title: "Politika e privatësisë",
+      subtitle: "Si i trajtojmë informacionet për vizitorët dhe kontribuesit.",
+      sections: [
+        {
+          h: "1. Rreth kësaj politike",
+          p: "Kjo Politikë e privatësisë shpjegon se si mira. i përpunon informacionet për vizitorët e kësaj faqeje. Jemi të përkushtuar për mbrojtjen e privatësisë tënde. Kjo politikë është hartuar në përputhje me Ligjin për mbrojtjen e të dhënave personale të Republikës së Maqedonisë së Veriut dhe me Rregulloren e Përgjithshme për Mbrojtjen e të Dhënave të BE-së (GDPR).",
+        },
+        {
+          h: "2. Kush jemi ne",
+          p: "mira. është një platformë jokomerciale informative për personat e prekur nga dhuna në familje në Maqedoninë e Veriut. Nuk shesim produkte ose shërbime. Nuk shfaqim reklama.",
+        },
+        {
+          h: "3. Cilat të dhëna përpunojmë",
+          p: "I mbajmë të dhënat në minimum absolut. Për vizitorët: përdorim Simple Analytics, një shërbim analitik që respekton privatësinë dhe mat vetëm trende anonime e të përgjithshme (shikime faqesh, shteti, faqja referuese, shfletuesi, madhësia e ekranit). Nuk e regjistron adresën tënde IP, nuk vendos cookie dhe nuk mund të të identifikojë. Për kontribuesit (organizatat): nëse plotëson formularin e kontributit, na jep vullnetarisht emrin e organizatës, tipin, qytetin, adresën, numrat e telefonit, email-in, faqen, shërbimet, përshkrimin, personin kontaktues, disponueshmërinë dhe informacionin e verifikimit.",
+        },
+        {
+          h: "4. Baza ligjore",
+          p: "Për formularin e kontributit, baza ligjore është pëlqimi yt, i dhënë kur dërgon formularin (neni 6(1)(a) i GDPR). Për analitikën, baza ligjore është interesi ynë legjitim për të kuptuar trafikun anonim me qëllim përmirësimin e platformës (neni 6(1)(f) i GDPR). Ky përpunim nuk përfshin të dhëna personale.",
+        },
+        {
+          h: "5. Si i përdorim të dhënat",
+          p: "Të dhënat e organizatave përdoren vetëm për të verifikuar dhe publikuar organizatën në platformë. Të dhënat analitike përdoren vetëm për të kuptuar modelet anonime të trafikut.",
+        },
+        {
+          h: "6. Kush i merr të dhënat e tua",
+          p: "Simple Analytics përpunon analitikën anonime (simpleanalytics.com/privacy). FormSubmit e dërgon formularin e kontributit në email-in tonë (formsubmit.co/privacy). Nuk i shesim, ndajmë apo shkëmbejmë të dhënat e tua me palë të treta të tjera.",
+        },
+        {
+          h: "7. Sa kohë i ruajmë të dhënat",
+          p: "Të dhënat e organizatave ruhen për aq kohë sa organizata është e listuar, ose deri sa të kërkosh fshirje. Analitika anonime ruhet në formë të përgjithshme nga Simple Analytics sipas politikës së tyre.",
+        },
+        {
+          h: "8. Të drejtat e tua",
+          p: "Sipas Ligjit për mbrojtjen e të dhënave personale dhe GDPR, ke të drejtën të aksesosh të dhënat që mbajmë për ty, të kërkosh korrigjim të të dhënave të pasakta, të kërkosh fshirje, të kundërshtosh përpunimin, të tërheqësh pëlqimin në çdo kohë dhe të paraqesësh ankesë pranë Agjencisë për Mbrojtjen e të Dhënave Personale të Maqedonisë së Veriut (azlp.mk).",
+        },
+        {
+          h: "9. Siguria e të dhënave",
+          p: "Marrim masa të arsyeshme teknike dhe organizative për të mbrojtur të dhënat nga aksesi i paautorizuar, ndryshimi, zbulimi ose shkatërrimi.",
+        },
+        {
+          h: "10. Ndryshimet në politikë",
+          p: "Kjo politikë mund të përditësohet herë pas here. Data më lart tregon përditësimin e fundit.",
+        },
+        {
+          h: "11. Kontakt",
+          p: "Për pyetje rreth privatësisë ose për të ushtruar të drejtat e tua, na kontakto përmes faqes së kontributit.",
+        },
+      ],
+    },
+    cookies: {
+      title: "Politika e cookie-ve",
+      subtitle: "Kjo faqe nuk përdor cookie.",
+      sections: [
+        {
+          h: "1. Asnjë cookie",
+          p: "Nuk vendosim cookie, piksela gjurmimi apo identifikues të tjerë të qëndrueshëm në pajisjen tënde për qëllime gjurmimi. Vizita jote nuk lidhet me asnjë identitet.",
+        },
+        {
+          h: "2. Analitikë pa cookie",
+          p: "Përdorim Simple Analytics, një shërbim analitik pa cookie që mat vetëm trende anonime e të përgjithshme (shikime faqesh, shteti, faqja referuese, shfletuesi, madhësia e ekranit). Nuk vendos cookie, nuk të gjurmon nëpër faqe të tjera dhe nuk mund të të identifikojë.",
+        },
+        {
+          h: "3. Ruajtja rreptësisht e nevojshme",
+          p: "Nëse e mbyll njoftimin e privatësisë, ruajmë një shenjë të vogël në local storage të shfletuesit në mënyrë që njoftimi të mos shfaqet përsëri. Kjo është rreptësisht e nevojshme për të kujtuar preferencën tënde dhe nuk kërkon pëlqim sipas Ligjit për komunikime elektronike të Maqedonisë së Veriut.",
+        },
+        {
+          h: "4. Lidhjet me palë të treta",
+          p: "Kur klikon lidhje drejt faqeve të organizatave, numrave të telefonit ose adresave email, ato shërbime të palëve të treta mund të vendosin cookie-t e tyre sipas politikave të veta. Ne nuk i kontrollojmë.",
+        },
+        {
+          h: "5. Menaxhimi i cookie-ve në shfletuesin tënd",
+          p: "Nëse dëshiron të bllokosh ose fshish cookie-t e vendosura nga çdo faqe, mund ta bësh këtë në cilësimet e shfletuesit. Udhëzimet janë të disponueshme në faqet e ndihmës së shfletuesit.",
+        },
+        {
+          h: "6. Historiku i shfletuesit",
+          p: "Vizita jote në këtë faqe mund të shfaqet në historikun e shfletuesit. Nëse ke nevojë ta fshehësh vizitën për arsye sigurie, pastro historikun pas vizitës ose përdor butonin 'Dil shpejt' në krye të faqes.",
+        },
+      ],
     },
   },
 } as const;

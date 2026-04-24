@@ -118,7 +118,7 @@ export default {
       num: "03",
       title: "Rod pravno akharin",
       subtitle: "Si tut pravia  koristin len",
-      content: "Šaj te avel tut zaštitno naredba bi advokatisko. Dža ko najbližno osnovno sudišće. Dža ko lokalno ofiso e Ministeriesko vash Justicia. ESE del besplatno pravno akharin (02 3298 295). Helsinški komiteti si les besplatno linija: 0800 44 222.",
+      content: "Šaj te avel tut zaštitno naredba bi advokatisko. Dža ko lokalno ofiso e Ministeriesko vash Justicia. ESE del besplatno pravno akharin (02 3298 295). Helsinški komiteti si les besplatno linija: 0800 44 222.",
       action: "Dikh organizacie",
       actionType: "navigate" as const,
     },
@@ -367,6 +367,99 @@ export default {
       name: "Združenije 'Žena'  Samokov",
       type: "Lokalno NVO  Sovetuibe thaj aktivnostia",
       desc: "Aktivizmi, rodibe, maripe kontra džuvlja, psihosocijalno akharin, sastipen.",
+    },
+  },
+
+  // Legal
+  legal: {
+    lastUpdated: "Ažuririmo: April 2026",
+    privacyLink: "Politika e privatnostisko",
+    cookiesLink: "Politika e kolačičensko",
+    backHome: "Palem ko počeno",
+    banner: {
+      message: "Akaja sajt koristil analitika savi arakhel privatnost. Bi kolačiča, bi pratibe, bi personalno podatke.",
+      accept: "Čaćes",
+      more: "Dikh majbut",
+    },
+    privacy: {
+      title: "Politika e privatnostisko",
+      subtitle: "Sar amen arakhas informacije pa vizitori thaj pa on kola den kontribucija.",
+      sections: [
+        {
+          h: "1. Pa akaja politika",
+          p: "Akaja Politika e privatnostisko objasnil sar mira. obradil informacije pa vizitori pe akaja veb-sajt. Amen sam posvetime te arakhas ti privatnost. Akaja politika si kerdi ko slog e Zakonaske pa zaštita pe personalne podatke pe Republika Severno Makedonija thaj e GDPR (Opšto regulativa pa zaštita pe podatke pe EU).",
+        },
+        {
+          h: "2. Ko sam amen",
+          p: "mira. si nekomercijalno informativno platforma pa manuša kola si pogodimen pa maripe ande familija ande Severno Makedonija. Amen na bikinas proizvodi ili usluge. Amen na sikavas reklame.",
+        },
+        {
+          h: "3. Save podatke obradisaras",
+          p: "Podatke držisaras po minimumo. Pa vizitori: koristisaras Simple Analytics, analitiko servis savo arakhel privatnost thaj meril samo anonimne, opšte trendija (dikhibe pe sajt, phuv, referentno sajt, brauser, baripe pe ekran). Na lena ti IP adresa, na thoven kolačiča thaj našti te identifikuin tut. Pa on kola den kontribucija (organizacije): te pherde e forma e kontributeske, voljno bičalen: anav, tip, gav, adresa, telefonsko brojevi, email, veb-sajt, usluge, opis, kontakt manuš, vrijeme pe rabota thaj informacije pa verifikacija.",
+        },
+        {
+          h: "4. Pravno baza",
+          p: "Pa e forma e kontributeske, pravno baza si ti saglasnost, dindi kana bičaljan e forma (član 6(1)(a) e GDPR). Pa analitika, pravno baza si amaro legitimno interes te haljovas anonimno saobraćaj sar te šukar ćeras e platforma (član 6(1)(f) e GDPR). Akava procesiranje na vključil personalne podatke.",
+        },
+        {
+          h: "5. Sar koristinas ti podatke",
+          p: "Podatke pa organizacije koristinas samo te verifikuin thaj te objavis organizacija pe platforma. Analitike podatke koristinas samo te haljovas anonimne obrazci pa saobraćaj.",
+        },
+        {
+          h: "6. Ko primil ti podatke",
+          p: "Simple Analytics procesiril anonimno analitika (simpleanalytics.com/privacy). FormSubmit bičalel e forma e kontributeske ko amaro email (formsubmit.co/privacy). Amen na bikinas, na delam thaj na menjujas ti podatke kavere trete stranenge.",
+        },
+        {
+          h: "7. Kobor vrijeme držas ti podatke",
+          p: "Podatke pa organizacije držas dži kaj organizacija si ko spisak, ili dži kaj na mangea brišenje. Anonimno analitika držisaras Simple Analytics ko opšto forma po lenge politika pa držimo.",
+        },
+        {
+          h: "8. Tire pravia",
+          p: "Po Zakon pa zaštita pe personalne podatke thaj GDPR, si tut pravo te dikhes podatke save držas pa tute, te manges korekcija pa netačne podatke, te manges brišenje, te protivnis procesiranje, te povuches saglasnost ando svako vrijeme thaj te podnes žalba ke Agencija pa zaštita pe personalne podatke pe Severno Makedonija (azlp.mk).",
+        },
+        {
+          h: "9. Bezbednost pa podatke",
+          p: "Lesa razumne tehničke thaj organizacione mere te arakhas podatke pa neovlastimo pristup, menjuibe, otkrivibe ili uništibe.",
+        },
+        {
+          h: "10. Menjibe pe akaja politika",
+          p: "Akaja politika šaj povremeno te ažurisara pe. Data upre sikavel o paslednjo ažuriribe.",
+        },
+        {
+          h: "11. Kontakt",
+          p: "Pa sa pučhipe pa privatnost ili te koristin tire pravia, arakh amen preko sajt e kontributeski.",
+        },
+      ],
+    },
+    cookies: {
+      title: "Politika e kolačičensko",
+      subtitle: "Akaja sajt na koristil kolačiča.",
+      sections: [
+        {
+          h: "1. Bi kolačiča",
+          p: "Amen na thovas kolačiča, pikseli pa pratibe ili avere trajne identifikatorija pe ti uređaj pa svrhe pa pratibe. Ti vizita na phandel pe khanikaske identitetoske.",
+        },
+        {
+          h: "2. Analitika bi kolačičengo",
+          p: "Koristisaras Simple Analytics, analitiko servis bi kolačičengo savo meril samo anonimne, opšte trendija (dikhibe pe sajt, phuv, referentno sajt, brauser, baripe pe ekran). Na thovel kolačiča, na pratinel tut kroz avere sajtovi thaj našti te identifikuin tut.",
+        },
+        {
+          h: "3. Strogo potrebno memorija",
+          p: "Te phandes e obavestenje pa privatnost, ko local storage e brauseresko thovas tikni oznaka te na dičhol pale. Akava si strogo potrebno te setinel pe tiri preferenca thaj na rodel saglasnost po Zakon pa elektronske komunikacije pe Severno Makedonija.",
+        },
+        {
+          h: "4. Linkovi ko trete stranenge",
+          p: "Kana kliknis ko khanutne linkovi ko veb-sajtovi, telefonsko brojevi ili email adresa pe organizacije, odola servisi pe trete stranenge šaj te thoven peske kolačiča po peske politike. Amen na kontrolis len.",
+        },
+        {
+          h: "5. Upravljibe e kolačičenca ando brauseri",
+          p: "Te mangen te bloknen ili te khosavan kolačiča kola si thodini pa bilokoja sajt, šaj te ćeren gova ando podešavanja pe brauser. Uputstvo si ando stranice pa pomoć pe brauser.",
+        },
+        {
+          h: "6. Istorija pe brauseri",
+          p: "Ti vizita pe akaja sajt šaj te dičhol pe ando istorija pe brauseri. Te valjan te garav vizita pa bezbednosne razlogi, khosavaj istorija palo vizita ili koristin o kopče 'Brzi izlaz' upre pe sajt.",
+        },
+      ],
     },
   },
 } as const;

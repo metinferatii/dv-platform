@@ -3,6 +3,7 @@ import "../styles/global.css";
 import TopNav from "../components/TopNav.astro";
 import BottomNav from "../components/BottomNav.astro";
 import EmergencyBanner from "../components/EmergencyBanner.astro";
+import PrivacyBanner from "../components/PrivacyBanner.astro";
 import type { Lang } from "../i18n/index";
 import { t } from "../i18n/translations";
 
@@ -38,6 +39,21 @@ const currentPath = Astro.url.pathname;
     <main class="pb-20 md:pb-0">
       <slot />
     </main>
+    <footer class="border-t border-surface-border bg-white pb-20 md:pb-0">
+      <div class="max-w-content mx-auto px-5 lg:px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-3">
+        <div class="text-brand-green font-extrabold tracking-tight font-display">
+          mira<span class="text-brand-green/40">.</span>
+        </div>
+        <div class="flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-txt-muted">
+          <a href={`/${lang}/privatesia`} class="hover:text-brand-green transition-colors">{tr.legal.privacyLink}</a>
+          <span class="opacity-40">·</span>
+          <a href={`/${lang}/cookies`} class="hover:text-brand-green transition-colors">{tr.legal.cookiesLink}</a>
+          <span class="opacity-40">·</span>
+          <a href={`/${lang}/kontribuo`} class="hover:text-brand-green transition-colors">{tr.home.providerCTA}</a>
+        </div>
+      </div>
+    </footer>
     <BottomNav currentPath={currentPath} lang={lang} />
+    <PrivacyBanner lang={lang} />
   </body>
 </html>

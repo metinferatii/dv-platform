@@ -1,0 +1,52 @@
+---
+import type { Lang } from "../i18n/index";
+import { t } from "../i18n/translations";
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const tr = t(lang);
+const banner = tr.legal.banner;
+---
+
+<div
+  id="privacy-banner"
+  class="fixed bottom-16 md:bottom-4 left-4 right-4 md:left-auto md:right-4 md:max-w-md z-[90] bg-white border border-surface-border rounded-2xl shadow-lg p-4 hidden"
+  role="region"
+  aria-label="Privacy notice"
+>
+  <p class="text-sm text-txt-secondary mb-3 leading-relaxed">{banner.message}</p>
+  <div class="flex items-center gap-3">
+    <button
+      id="privacy-banner-accept"
+      class="bg-brand-green hover:bg-brand-green-hover text-white text-sm font-semibold px-4 py-2 rounded-lg transition-colors"
+    >
+      {banner.accept}
+    </button>
+    <a
+      href={`/${lang}/privatesia`}
+      class="text-sm text-brand-green hover:underline font-medium"
+    >
+      {banner.more}
+    </a>
+  </div>
+</div>
+
+<script>
+  const KEY = "mira-privacy-ack";
+  const banner = document.getElementById("privacy-banner");
+  const acceptBtn = document.getElementById("privacy-banner-accept");
+
+  if (banner && !localStorage.getItem(KEY)) {
+    banner.classList.remove("hidden");
+  }
+
+  acceptBtn?.addEventListener("click", () => {
+    try {
+      localStorage.setItem(KEY, "1");
+    } catch {}
+    banner?.classList.add("hidden");
+  });
+</script>

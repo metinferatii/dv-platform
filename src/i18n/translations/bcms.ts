@@ -118,7 +118,7 @@ export default {
       num: "03",
       title: "Potraži pravnu pomoć",
       subtitle: "Imaš prava, iskoristi ih",
-      content: "Možeš dobiti zaštitnu mjeru bez advokata. Idi u najbliži osnovni sud. Idite u lokalnu kancelariju Ministarstva pravde. ESE nudi besplatnu pravnu pomoć (02 3298 295). Helsinški komitet ima besplatnu liniju: 0800 44 222.",
+      content: "Možeš dobiti zaštitnu mjeru bez advokata. Idite u lokalnu kancelariju Ministarstva pravde. ESE nudi besplatnu pravnu pomoć (02 3298 295). Helsinški komitet ima besplatnu liniju: 0800 44 222.",
       action: "Pogledaj organizacije",
       actionType: "navigate" as const,
     },
@@ -367,6 +367,99 @@ export default {
       name: "Udruženje 'Žena' - Samokov",
       type: "Lokalna NVO - Savjetovanje i aktivnosti",
       desc: "Aktivizam, istraživanje, nasilje nad ženama, psihosocijalna njega, zdravlje.",
+    },
+  },
+
+  // Legal
+  legal: {
+    lastUpdated: "Posljednje ažuriranje: April 2026",
+    privacyLink: "Politika privatnosti",
+    cookiesLink: "Politika kolačića",
+    backHome: "Nazad na početnu",
+    banner: {
+      message: "Ova stranica koristi analitiku koja poštuje privatnost. Bez kolačića, bez praćenja, bez ličnih podataka.",
+      accept: "U redu",
+      more: "Saznaj više",
+    },
+    privacy: {
+      title: "Politika privatnosti",
+      subtitle: "Kako postupamo sa informacijama o posjetiteljima i onima koji daju doprinos.",
+      sections: [
+        {
+          h: "1. O ovoj politici",
+          p: "Ova Politika privatnosti objašnjava kako mira. obrađuje informacije o posjetiteljima ove web stranice. Obavezujemo se da ćemo štititi tvoju privatnost. Politika je izrađena u skladu sa Zakonom o zaštiti ličnih podataka Republike Sjeverne Makedonije i Općom uredbom o zaštiti podataka EU-a (GDPR).",
+        },
+        {
+          h: "2. Ko smo mi",
+          p: "mira. je nekomercijalna informativna platforma za osobe pogođene nasiljem u porodici u Sjevernoj Makedoniji. Ne prodajemo proizvode ili usluge. Ne prikazujemo reklame.",
+        },
+        {
+          h: "3. Koje podatke obrađujemo",
+          p: "Podatke svodimo na apsolutni minimum. Za posjetitelje: koristimo Simple Analytics, analitički servis koji poštuje privatnost i mjeri samo anonimne, skupne trendove (pregledi stranica, država, referentna stranica, pretraživač, veličina ekrana). Ne bilježi tvoju IP adresu, ne postavlja kolačiće i ne može te identifikovati. Za organizacije koje daju doprinos: ako popuniš obrazac za učešće, dobrovoljno nam dostavljaš naziv, vrstu, grad, adresu, brojeve telefona, email, web stranicu, usluge, opis, kontakt osobu, dostupnost i podatke za provjeru.",
+        },
+        {
+          h: "4. Pravni osnov",
+          p: "Za obrazac za učešće, pravni osnov je tvoja saglasnost, data prilikom slanja obrasca (član 6(1)(a) GDPR). Za analitiku, pravni osnov je naš legitimni interes za razumijevanje anonimnog prometa radi poboljšanja platforme (član 6(1)(f) GDPR). Ova obrada ne uključuje lične podatke.",
+        },
+        {
+          h: "5. Kako koristimo podatke",
+          p: "Podaci organizacija koriste se samo za provjeru i objavljivanje organizacije na platformi. Analitički podaci koriste se samo za razumijevanje anonimnih obrazaca prometa.",
+        },
+        {
+          h: "6. Ko prima tvoje podatke",
+          p: "Simple Analytics obrađuje anonimnu analitiku (simpleanalytics.com/privacy). FormSubmit dostavlja obrazac za učešće na našu email adresu (formsubmit.co/privacy). Tvoje podatke ne prodajemo, ne dijelimo i ne razmjenjujemo ni s jednom drugom trećom stranom.",
+        },
+        {
+          h: "7. Koliko dugo čuvamo podatke",
+          p: "Podaci organizacije čuvaju se dok je organizacija navedena na platformi, ili dok ne zatražiš brisanje. Anonimnu analitiku Simple Analytics čuva u zbirnom obliku prema svojoj politici čuvanja.",
+        },
+        {
+          h: "8. Tvoja prava",
+          p: "Prema Zakonu o zaštiti ličnih podataka i GDPR-u, imaš pravo pristupiti podacima koje čuvamo o tebi, tražiti ispravku netačnih podataka, tražiti brisanje, prigovoriti obradi, povući saglasnost u bilo kojem trenutku i podnijeti pritužbu Agenciji za zaštitu ličnih podataka Sjeverne Makedonije (azlp.mk).",
+        },
+        {
+          h: "9. Sigurnost podataka",
+          p: "Preduzimamo razumne tehničke i organizacione mjere za zaštitu podataka od neovlaštenog pristupa, izmjene, otkrivanja ili uništenja.",
+        },
+        {
+          h: "10. Izmjene ove politike",
+          p: "Ova politika može se povremeno ažurirati. Datum iznad prikazuje posljednje ažuriranje.",
+        },
+        {
+          h: "11. Kontakt",
+          p: "Za bilo kakva pitanja vezana za privatnost ili korištenje tvojih prava, kontaktiraj nas preko stranice za učešće.",
+        },
+      ],
+    },
+    cookies: {
+      title: "Politika kolačića",
+      subtitle: "Ova stranica ne koristi kolačiće.",
+      sections: [
+        {
+          h: "1. Nema kolačića",
+          p: "Ne postavljamo kolačiće, piksele za praćenje niti bilo kakve druge trajne identifikatore na tvoj uređaj u svrhu praćenja. Tvoja posjeta se ne povezuje ni sa kakvim identitetom.",
+        },
+        {
+          h: "2. Analitika bez kolačića",
+          p: "Koristimo Simple Analytics, analitički servis bez kolačića koji mjeri samo anonimne, skupne trendove (pregledi, država, referentna stranica, pretraživač, veličina ekrana). Ne postavlja kolačiće, ne prati te kroz druge stranice i ne može te identifikovati.",
+        },
+        {
+          h: "3. Strogo potrebno spremište",
+          p: "Ako zatvoriš obavijest o privatnosti, u local storage pretraživača spremamo malu oznaku kako se obavijest ne bi ponovo pojavljivala. Ovo je strogo potrebno da bi se zapamtila tvoja preferenca i ne zahtijeva saglasnost prema Zakonu o elektronskim komunikacijama Sjeverne Makedonije.",
+        },
+        {
+          h: "4. Linkovi ka trećim stranama",
+          p: "Kada klikneš na vanjske linkove ka web stranicama, brojevima telefona ili email adresama organizacija, ti servisi trećih strana mogu postaviti svoje kolačiće prema svojim politikama. Mi ih ne kontroliramo.",
+        },
+        {
+          h: "5. Upravljanje kolačićima u pretraživaču",
+          p: "Ako želiš blokirati ili obrisati kolačiće koje postavlja bilo koja stranica, to možeš učiniti u postavkama pretraživača. Uputstva su dostupna na stranicama pomoći tvog pretraživača.",
+        },
+        {
+          h: "6. Historija pretraživača",
+          p: "Tvoja posjeta ovoj stranici može se pojaviti u historiji pretraživača. Ako iz sigurnosnih razloga trebaš sakriti posjetu, obriši historiju nakon posjete ili koristi dugme 'Brzi izlaz' na vrhu stranice.",
+        },
+      ],
     },
   },
 } as const;

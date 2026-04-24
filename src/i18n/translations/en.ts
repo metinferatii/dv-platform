@@ -118,7 +118,7 @@ export default {
       num: "03",
       title: "Seek legal help",
       subtitle: "You have rights  use them",
-      content: "You can get a protection order without a lawyer. Go to the nearest basic court. Go to the local office of the Ministry of Justice. ESE offers free legal help (02 3298 295). The Helsinki Committee has a free line: 0800 44 222.",
+      content: "You can get a protection order without a lawyer. Go to the local office of the Ministry of Justice. ESE offers free legal help (02 3298 295). The Helsinki Committee has a free line: 0800 44 222.",
       action: "View organizations",
       actionType: "navigate" as const,
     },
@@ -367,6 +367,99 @@ export default {
       name: "Association 'Zhena'  Samokov",
       type: "Local NGO  Counselling & activities",
       desc: "Activism, research, violence against women, psychosocial care, health.",
+    },
+  },
+
+  // Legal
+  legal: {
+    lastUpdated: "Last updated: April 2026",
+    privacyLink: "Privacy Policy",
+    cookiesLink: "Cookie Policy",
+    backHome: "Back to home",
+    banner: {
+      message: "This site uses privacy-first analytics. No cookies, no tracking, no personal data collected.",
+      accept: "Got it",
+      more: "Learn more",
+    },
+    privacy: {
+      title: "Privacy Policy",
+      subtitle: "How we handle information about visitors and contributors.",
+      sections: [
+        {
+          h: "1. About this policy",
+          p: "This Privacy Policy explains how mira. processes information about visitors to this website. We are committed to protecting your privacy. This policy is prepared in line with the Law on Personal Data Protection of the Republic of North Macedonia and the EU General Data Protection Regulation (GDPR).",
+        },
+        {
+          h: "2. Who we are",
+          p: "mira. is a non-commercial information platform for people affected by domestic violence in North Macedonia. We do not sell products or services. We do not run advertising.",
+        },
+        {
+          h: "3. What data we process",
+          p: "We keep data to an absolute minimum. For visitors: we use Simple Analytics, a privacy-first analytics service that measures only anonymous, aggregated trends (page views, country, referring site, browser, screen size). It does not record your IP address, does not set cookies, and cannot identify you. For contributors (organisations): if you fill in the Contribute form, you voluntarily provide your organisation's name, type, city, address, phone numbers, email, website, services, description, contact person, availability, and verification info.",
+        },
+        {
+          h: "4. Legal basis",
+          p: "For the Contribute form, the legal basis is your consent, given when you submit the form (Article 6(1)(a) GDPR). For analytics, the legal basis is our legitimate interest in understanding anonymous traffic to improve the platform (Article 6(1)(f) GDPR). This processing does not involve personal data.",
+        },
+        {
+          h: "5. How we use your data",
+          p: "Organisation data is used only to verify and publish your organisation on the platform. Analytics data is used only to understand anonymous traffic patterns.",
+        },
+        {
+          h: "6. Who receives your data",
+          p: "Simple Analytics processes anonymous analytics (simpleanalytics.com/privacy). FormSubmit delivers the Contribute form to our email (formsubmit.co/privacy). We do not sell, share, or trade your data with any other third parties.",
+        },
+        {
+          h: "7. How long we keep your data",
+          p: "Organisation data is kept for as long as the organisation is listed, or until you request deletion. Anonymous analytics are kept in aggregate form by Simple Analytics according to their retention policy.",
+        },
+        {
+          h: "8. Your rights",
+          p: "Under the Law on Personal Data Protection and GDPR, you have the right to access the data we hold about you, to request correction of inaccurate data, to request deletion, to object to processing, to withdraw consent at any time, and to lodge a complaint with the Agency for Personal Data Protection of North Macedonia (azlp.mk).",
+        },
+        {
+          h: "9. Data security",
+          p: "We take reasonable technical and organisational measures to protect your data against unauthorised access, alteration, disclosure, or destruction.",
+        },
+        {
+          h: "10. Changes to this policy",
+          p: "We may update this policy from time to time. The date above shows the last update.",
+        },
+        {
+          h: "11. Contact",
+          p: "For any privacy-related questions or to exercise your rights, contact us through the Contribute page.",
+        },
+      ],
+    },
+    cookies: {
+      title: "Cookie Policy",
+      subtitle: "This website does not use cookies.",
+      sections: [
+        {
+          h: "1. No cookies",
+          p: "We do not set cookies, tracking pixels, or any other persistent identifier on your device for tracking purposes. Your visit is not linked to any identity.",
+        },
+        {
+          h: "2. Cookie-free analytics",
+          p: "We use Simple Analytics, a cookie-free analytics service that measures only anonymous, aggregated trends (page views, country, referring site, browser, screen size). It does not place cookies, does not track you across websites, and cannot identify you.",
+        },
+        {
+          h: "3. Strictly necessary storage",
+          p: "If you dismiss the privacy notice banner, we store a small flag in your browser's local storage so the banner does not reappear. This is strictly necessary to remember your preference and does not require consent under the Macedonian Law on Electronic Communications.",
+        },
+        {
+          h: "4. Third-party links",
+          p: "When you click external links to organisations' websites, phone numbers, or email addresses, those third-party services may set their own cookies under their own policies. We do not control them.",
+        },
+        {
+          h: "5. Managing cookies in your browser",
+          p: "If you want to block or delete cookies set by any site, you can do this in your browser settings. Instructions are available on your browser's help pages.",
+        },
+        {
+          h: "6. Browser history",
+          p: "Your visit to this site may appear in your browser history. If you need to hide your visit for safety reasons, clear your browser history after your visit, or use the 'Quick exit' button at the top of the page.",
+        },
+      ],
     },
   },
 } as const;

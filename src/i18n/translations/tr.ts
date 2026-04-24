@@ -118,7 +118,7 @@ export default {
       num: "03",
       title: "Hukuki yardım iste",
       subtitle: "Hakların var, kullan onları",
-      content: "Avukatsız koruma emri alabilirsin. En yakın temel mahkemeye git. Adalet Bakanlığı'nın yerel ofisine gidin. ESE ücretsiz hukuki yardım sunuyor (02 3298 295). Helsinki Komitesi'nin ücretsiz hattı: 0800 44 222.",
+      content: "Avukatsız koruma emri alabilirsin. Adalet Bakanlığı'nın yerel ofisine gidin. ESE ücretsiz hukuki yardım sunuyor (02 3298 295). Helsinki Komitesi'nin ücretsiz hattı: 0800 44 222.",
       action: "Kuruluşları gör",
       actionType: "navigate" as const,
     },
@@ -367,6 +367,99 @@ export default {
       name: "Zhena Derneği - Samokov",
       type: "Yerel STK - Danışmanlık ve faaliyetler",
       desc: "Aktivizm, araştırma, kadına yönelik şiddet, psikososyal bakım, sağlık.",
+    },
+  },
+
+  // Legal
+  legal: {
+    lastUpdated: "Son güncelleme: Nisan 2026",
+    privacyLink: "Gizlilik politikası",
+    cookiesLink: "Çerez politikası",
+    backHome: "Ana sayfaya dön",
+    banner: {
+      message: "Bu site gizliliğe öncelik veren analitik kullanır. Çerez yok, takip yok, kişisel veri toplanmıyor.",
+      accept: "Anladım",
+      more: "Daha fazla bilgi",
+    },
+    privacy: {
+      title: "Gizlilik politikası",
+      subtitle: "Ziyaretçiler ve katkı sağlayanlar hakkındaki bilgileri nasıl işliyoruz.",
+      sections: [
+        {
+          h: "1. Bu politika hakkında",
+          p: "Bu Gizlilik Politikası, mira.'nın bu web sitesinin ziyaretçilerine ait bilgileri nasıl işlediğini açıklar. Gizliliğini korumaya kararlıyız. Politika, Kuzey Makedonya Cumhuriyeti Kişisel Verilerin Korunması Kanunu ve Avrupa Birliği Genel Veri Koruma Tüzüğü (GDPR) ile uyumlu olarak hazırlanmıştır.",
+        },
+        {
+          h: "2. Biz kimiz",
+          p: "mira., Kuzey Makedonya'da aile içi şiddetten etkilenen kişiler için ticari olmayan bir bilgi platformudur. Ürün veya hizmet satmıyoruz. Reklam göstermiyoruz.",
+        },
+        {
+          h: "3. Hangi verileri işliyoruz",
+          p: "Verileri mutlak asgari düzeyde tutuyoruz. Ziyaretçiler için: Gizliliğe öncelik veren Simple Analytics'i kullanıyoruz; yalnızca anonim, toplu eğilimleri ölçer (sayfa görüntülemeleri, ülke, yönlendiren site, tarayıcı, ekran boyutu). IP adresini kaydetmez, çerez yerleştirmez ve seni birey olarak tanımlayamaz. Katkı sağlayanlar (kuruluşlar) için: Katkı formunu doldurursan, kuruluşunun adı, türü, şehri, adresi, telefonları, e-postası, web sitesi, hizmetleri, açıklaması, iletişim kişisi, uygunluk bilgileri ve doğrulama bilgilerini gönüllü olarak iletirsin.",
+        },
+        {
+          h: "4. Hukuki dayanak",
+          p: "Katkı formu için hukuki dayanak, formu gönderdiğinde verdiğin onaydır (GDPR madde 6(1)(a)). Analitik için hukuki dayanak, platformu geliştirmek amacıyla anonim trafiği anlamakta meşru menfaatimizdir (GDPR madde 6(1)(f)). Bu işleme kişisel veri içermez.",
+        },
+        {
+          h: "5. Verilerini nasıl kullanıyoruz",
+          p: "Kuruluş verileri yalnızca kuruluşunun doğrulanması ve platformda yayınlanması için kullanılır. Analitik veriler yalnızca anonim trafik desenlerini anlamak için kullanılır.",
+        },
+        {
+          h: "6. Verilerini kim alıyor",
+          p: "Simple Analytics anonim analitiği işler (simpleanalytics.com/privacy). FormSubmit, Katkı formunu e-posta adresimize iletir (formsubmit.co/privacy). Verilerini başka hiçbir üçüncü tarafla satmaz, paylaşmaz veya takas etmeyiz.",
+        },
+        {
+          h: "7. Verilerini ne kadar süreyle saklıyoruz",
+          p: "Kuruluş verileri, kuruluş listelendiği sürece veya silinmesini isteyene kadar saklanır. Anonim analitik, Simple Analytics tarafından kendi saklama politikasına göre toplu olarak saklanır.",
+        },
+        {
+          h: "8. Hakların",
+          p: "Kişisel Verilerin Korunması Kanunu ve GDPR kapsamında; hakkında tuttuğumuz verilere erişme, yanlış verilerin düzeltilmesini isteme, silinmesini isteme, işlemeye itiraz etme, onayı istediğin an geri çekme ve Kuzey Makedonya Kişisel Verileri Koruma Ajansı'na (azlp.mk) şikayette bulunma hakkına sahipsin.",
+        },
+        {
+          h: "9. Veri güvenliği",
+          p: "Verileri yetkisiz erişim, değişiklik, ifşa veya imhaya karşı korumak için makul teknik ve organizasyonel önlemler alıyoruz.",
+        },
+        {
+          h: "10. Bu politikada değişiklikler",
+          p: "Bu politika zaman zaman güncellenebilir. Yukarıdaki tarih son güncellemeyi gösterir.",
+        },
+        {
+          h: "11. İletişim",
+          p: "Gizlilikle ilgili her türlü soru için veya haklarını kullanmak için Katkı sayfası üzerinden bize ulaş.",
+        },
+      ],
+    },
+    cookies: {
+      title: "Çerez politikası",
+      subtitle: "Bu site çerez kullanmaz.",
+      sections: [
+        {
+          h: "1. Çerez yok",
+          p: "Takip amaçlı olarak cihazına çerez, takip pikseli veya başka kalıcı bir tanımlayıcı yerleştirmiyoruz. Ziyaretin herhangi bir kimlikle eşleşmez.",
+        },
+        {
+          h: "2. Çerezsiz analitik",
+          p: "Simple Analytics, çerezsiz bir analitik servistir ve yalnızca anonim, toplu eğilimleri ölçer (sayfa görüntülemeleri, ülke, yönlendiren, tarayıcı, ekran boyutu). Çerez yerleştirmez, başka sitelerde seni takip etmez ve seni tanımlayamaz.",
+        },
+        {
+          h: "3. Kesinlikle gerekli depolama",
+          p: "Gizlilik bildirim şeridini kapatırsan, tarayıcı local storage'ına küçük bir işaret yerleştiririz; böylece bildirim tekrar görünmez. Bu, tercihini hatırlamak için kesinlikle gereklidir ve Kuzey Makedonya Elektronik İletişim Kanunu kapsamında onay gerektirmez.",
+        },
+        {
+          h: "4. Üçüncü taraf bağlantılar",
+          p: "Kuruluşların web sitelerine, telefon numaralarına veya e-posta adreslerine giden harici bağlantılara tıkladığında, o üçüncü taraf hizmetleri kendi politikalarına göre kendi çerezlerini yerleştirebilir. Biz bunları kontrol etmeyiz.",
+        },
+        {
+          h: "5. Tarayıcında çerez yönetimi",
+          p: "Herhangi bir sitenin yerleştirdiği çerezleri engellemek veya silmek istersen bunu tarayıcı ayarlarından yapabilirsin. Tarayıcının yardım sayfalarında yönergeler bulunur.",
+        },
+        {
+          h: "6. Tarayıcı geçmişi",
+          p: "Bu siteye yaptığın ziyaret tarayıcı geçmişinde görünebilir. Güvenlik nedeniyle ziyaretini gizlemen gerekirse ziyaretin ardından tarayıcı geçmişini temizle veya sayfanın üstündeki 'Hızlı çıkış' düğmesini kullan.",
+        },
+      ],
     },
   },
 } as const;

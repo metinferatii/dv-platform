@@ -190,7 +190,7 @@ const catIcons: Record<string, string> = {
                         <div class="flex items-center gap-2 mb-1.5">
                           {org.website && (
                             <img
-                              src={`https://www.google.com/s2/favicons?domain=${new URL(org.website).hostname}&sz=32`}
+                              src={`https://icons.duckduckgo.com/ip3/${new URL(org.website).hostname}.ico`}
                               alt=""
                               width="18"
                               height="18"
@@ -310,20 +310,6 @@ const catIcons: Record<string, string> = {
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer class="border-t border-surface-border bg-white">
-    <div class="max-w-content mx-auto px-5 lg:px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-      <div class="text-brand-green font-extrabold tracking-tight font-display">
-        mira<span class="text-brand-green/40">.</span>
-      </div>
-      <div class="flex flex-col sm:flex-row items-center gap-3 text-xs text-txt-muted text-center">
-        <span>{tr.home.privacy}</span>
-        <a href={`/${lang}/kontribuo`} class="underline hover:text-brand-green transition-colors">
-          {tr.home.providerCTA}
-        </a>
-      </div>
-    </div>
-  </footer>
 </Base>
 
 <script>
