@@ -1,10 +1,72 @@
 ---
-// No server redirect — use client-side meta refresh
+import { languages, type Lang } from "../i18n/index";
+import { t } from "../i18n/translations";
+
+const site = Astro.site ?? new URL("https://mira.mk");
+
+const localeMap: Record<Lang, string> = {
+  mk: "mk-MK",
+  sq: "sq-AL",
+  en: "en-US",
+  tr: "tr-TR",
+  bcms: "bs-BA",
+  rom: "rom",
+};
+
+const langOrder: Lang[] = ["mk", "sq", "en", "tr", "bcms", "rom"];
+const mkMeta = t("mk").meta;
 ---
-<html>
+
+<!doctype html>
+<html lang="mk">
   <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{mkMeta.title}</title>
+    <meta name="description" content={mkMeta.description} />
+    <meta name="robots" content="index, follow" />
+
+    <link rel="canonical" href={new URL("/mk", site).toString()} />
+    <link rel="alternate" hreflang="x-default" href={new URL("/mk", site).toString()} />
+    {langOrder.map((l) => (
+      <link rel="alternate" hreflang={localeMap[l]} href={new URL(`/${l}`, site).toString()} />
+    ))}
+
     <meta http-equiv="refresh" content="0;url=/mk" />
-    <link rel="canonical" href="/mk" />
+    <script is:inline>
+      (function () {
+        try {
+          var supported = ["mk", "sq", "en", "tr", "bcms", "rom"];
+          var langs = (navigator.languages || [navigator.language || "mk"]).map(function (l) {
+            return l.toLowerCase();
+          });
+          var map = { sr: "bcms", hr: "bcms", bs: "bcms", rom: "rom", rmy: "rom" };
+          var pick = "mk";
+          for (var i = 0; i < langs.length; i++) {
+            var base = langs[i].split("-")[0];
+            var candidate = map[base] || base;
+            if (supported.indexOf(candidate) !== -1) { pick = candidate; break; }
+          }
+          location.replace("/" + pick);
+        } catch (_) {
+          location.replace("/mk");
+        }
+      })();
+    </script>
+    <style>
+      body { font-family: system-ui, sans-serif; padding: 2rem; max-width: 40rem; margin: 0 auto; }
+      h1 { font-size: 1.5rem; margin: 0 0 1rem; }
+      ul { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 0.75rem; }
+      a { color: #0a7d3a; text-decoration: none; padding: 0.5rem 1rem; border: 1px solid #0a7d3a; border-radius: 9999px; }
+    </style>
   </head>
-  <body></body>
+  <body>
+    <h1>Mira — {mkMeta.description}</h1>
+    <p>Choose a language / Изберете јазик / Zgjidhni gjuhën:</p>
+    <ul>
+      {langOrder.map((l) => (
+        <li><a href={`/${l}`}>{languages[l]}</a></li>
+      ))}
+    </ul>
+  </body>
 </html>

@@ -4,18 +4,89 @@ import TopNav from "../components/TopNav.astro";
 import BottomNav from "../components/BottomNav.astro";
 import EmergencyBanner from "../components/EmergencyBanner.astro";
 import PrivacyBanner from "../components/PrivacyBanner.astro";
-import type { Lang } from "../i18n/index";
+import { languages, type Lang } from "../i18n/index";
 import { t } from "../i18n/translations";
 
 interface Props {
   title?: string;
+  description?: string;
   lang: Lang;
 }
 
 const { lang } = Astro.props;
 const tr = t(lang);
 const title = Astro.props.title || tr.meta.title;
+const description = Astro.props.description || tr.meta.description;
 const currentPath = Astro.url.pathname;
+
+const site = Astro.site ?? new URL("https://mira.mk");
+const canonical = new URL(currentPath, site).toString();
+
+// Strip the leading lang segment so we can build alternates for every language.
+const pathWithoutLang = (() => {
+  const parts = currentPath.split("/").filter(Boolean);
+  if (parts[0] && parts[0] in languages) parts.shift();
+  return parts.length ? "/" + parts.join("/") : "/";
+})();
+
+const localeMap: Record<Lang, string> = {
+  mk: "mk-MK",
+  sq: "sq-AL",
+  en: "en-US",
+  tr: "tr-TR",
+  bcms: "bs-BA",
+  rom: "rom",
+};
+
+const alternateRel = (l: Lang) =>
+  pathWithoutLang === "/" ? `/${l}/` : `/${l}${pathWithoutLang}/`;
+
+const alternates = (Object.keys(languages) as Lang[]).map((l) => ({
+  hreflang: localeMap[l],
+  href: new URL(alternateRel(l), site).toString(),
+}));
+
+const ogLocaleAlternates = alternates
+  .filter((a) => a.hreflang !== localeMap[lang])
+  .map((a) => a.hreflang.replace("-", "_"));
+
+const isHome = pathWithoutLang === "/";
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": new URL("/#organization", site).toString(),
+      name: "Mira",
+      url: site.toString(),
+      logo: new URL("/og.png", site).toString(),
+      areaServed: { "@type": "Country", name: "North Macedonia" },
+    },
+    {
+      "@type": "WebSite",
+      "@id": new URL("/#website", site).toString(),
+      url: site.toString(),
+      name: "Mira",
+      description: tr.meta.description,
+      inLanguage: localeMap[lang],
+      publisher: { "@id": new URL("/#organization", site).toString() },
+    },
+    ...(isHome
+      ? [
+          {
+            "@type": "WebPage",
+            "@id": canonical,
+            url: canonical,
+            name: title,
+            description,
+            inLanguage: localeMap[lang],
+            isPartOf: { "@id": new URL("/#website", site).toString() },
+          },
+        ]
+      : []),
+  ],
+};
 ---
 
 <!doctype html>
@@ -23,9 +94,40 @@ const currentPath = Astro.url.pathname;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content={tr.meta.description} />
-    <meta name="robots" content="noindex, nofollow" />
+    <meta name="description" content={description} />
+    <meta name="robots" content="index, follow" />
     <title>{title}</title>
+
+    <link rel="canonical" href={canonical} />
+    {alternates.map((a) => (
+      <link rel="alternate" hreflang={a.hreflang} href={a.href} />
+    ))}
+    <link
+      rel="alternate"
+      hreflang="x-default"
+      href={new URL(alternateRel("mk"), site).toString()}
+    />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Mira" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content={localeMap[lang].replace("-", "_")} />
+    {ogLocaleAlternates.map((l) => (
+      <meta property="og:locale:alternate" content={l} />
+    ))}
+    <meta property="og:image" content={new URL(`/og-${lang}.png`, site).toString()} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={new URL(`/og-${lang}.png`, site).toString()} />
+
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+
     <!-- 100% privacy-first analytics -->
     <script data-collect-dnt="true" async src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
   </head>
